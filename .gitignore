@@ -1,3 +1,4 @@
+.vs/
 .vscode/
 Skilbox-C-sharp/.vs/
 Skilbox-C-sharp/Skilbox-C-sharp/
@@ -5,3 +6,6 @@ Skilbox-C-sharp/*.sln
 Skilbox-C-sharp/Lesson-1/bin
 Skilbox-C-sharp/Lesson-1/obj
 Skilbox-C-sharp/Lesson-1/*csproj
+Skilbox-C-sharp/Lesson-2/bin
+Skilbox-C-sharp/Lesson-2/obj
+Skilbox-C-sharp/Lesson-2/*csproj
