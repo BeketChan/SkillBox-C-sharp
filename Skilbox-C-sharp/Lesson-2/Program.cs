@@ -1,6 +1,7 @@
 ﻿/// <summary>
 /// 
 /// Домашнее задание 2.
+/// Текст задания взял из "2.1_Исходники". Есть небольшие различия: например, на сайте требуют создать переменную под сумму баллов, в исходниках нет.
 /// 
 /// </summary>
 
@@ -15,9 +16,9 @@
 // 1. Создать несколько переменных разных типов, в которых могут храниться данные
 //    - имя;
 string name1, name2, name3;
-name1 = "Ivan";
-name2 = "Petr";
-name3 = "Liza";
+name1 = "Ivan Ivanovich Ivanov";
+name2 = "Petr Petrovich Petrov";
+name3 = "Liza Petrovna Ivanova";
 
 //    - возраст;
 byte age1, age2, age3;
@@ -69,21 +70,40 @@ Console.WriteLine($"Имя: {name3} Возраст: {age3} Рост: {height3} �
 // 5. В качестве бонусной части, за дополнительную оплату $50, заказчик просит реализовать 
 //    возможность вывода данных в центре консоли.
 /// <summary>
-/// Я решил отцетровывать только по шири не консоли. В принципе можно и по высоте, но так можно "наползти" на предыдущий ввод текста.
+/// Я решил отцетровывать только по ширине консоли. В принципе можно и по высоте, но так можно "наползти" на предыдущий ввод текста.
 /// </summary>
 int currentTop = 5;
 Console.SetCursorPosition((Console.WindowWidth - "Бонусная часть".Length) / 2, currentTop);
 Console.WriteLine("Бонусная часть");
 currentTop++;
+Console.ReadKey();
 
-string pattern1 = "Имя: {0} Возраст: {1} Рост: {2} История: {3} Математика: {4} Русский язык: {5} Средний бал: {6:#.##}";
-Console.SetCursorPosition((Console.WindowWidth - pattern1.Length) / 2, currentTop);
-Console.WriteLine(pattern1, name1, age1, height1, hist1, math1, rus1, average1);
+string pattern1 = "ФИО: {0} Возраст: {1} Рост: {2}";
+string pattern2 = "История: {0} Математика: {1} Русский язык: {2} Средний бал: {3:#.##}";
+/// <summary>
+/// 9 и 17 = длина всех {} элементов в переменных "pattern".
+/// Разделил вывод на две строки, так как в некоторых случаях длинна строки больше ширины окна консоли
+/// </summary>
+Console.SetCursorPosition((Console.WindowWidth - (pattern1.Length - 9 + name1.Length + Convert.ToString(age1).Length + Convert.ToString(height1).Length)) / 2, currentTop);
+Console.WriteLine(pattern1, name1, age1, height1);
 currentTop++;
-Console.SetCursorPosition((Console.WindowWidth - pattern1.Length) / 2, currentTop);
-Console.WriteLine(pattern1, name2, age2, height2, hist2, math2, rus2, average2);
+Console.SetCursorPosition((Console.WindowWidth - (pattern2.Length - 17 + Convert.ToString(hist1).Length + Convert.ToString(math1).Length + Convert.ToString(rus1).Length + Convert.ToString(Math.Round((decimal)average1,2)).Length)) / 2, currentTop);
+Console.WriteLine(pattern2, hist1, math1, rus1, average1);
 currentTop++;
-Console.SetCursorPosition((Console.WindowWidth - pattern1.Length) / 2, currentTop);
-Console.WriteLine(pattern1, name3, age3, height3, hist3, math3, rus3, average3);
+Console.ReadKey();
+
+Console.SetCursorPosition((Console.WindowWidth - (pattern1.Length - 9 + name2.Length + Convert.ToString(age2).Length + Convert.ToString(height2).Length)) / 2, currentTop);
+Console.WriteLine(pattern1, name2, age2, height2);
+currentTop++;
+Console.SetCursorPosition((Console.WindowWidth - (pattern2.Length - 17 + Convert.ToString(hist2).Length + Convert.ToString(math2).Length + Convert.ToString(rus2).Length + Convert.ToString(Math.Round((decimal)average2, 2)).Length)) / 2, currentTop);
+Console.WriteLine(pattern2, hist2, math2, rus2, average2);
+currentTop++;
+Console.ReadKey();
+
+Console.SetCursorPosition((Console.WindowWidth - (pattern1.Length - 9 + name3.Length + Convert.ToString(age3).Length + Convert.ToString(height3).Length)) / 2, currentTop);
+Console.WriteLine(pattern1, name3, age3, height3);
+currentTop++;
+Console.SetCursorPosition((Console.WindowWidth - (pattern2.Length - 17 + Convert.ToString(hist3).Length + Convert.ToString(math3).Length + Convert.ToString(rus3).Length + Convert.ToString(Math.Round((decimal)average3, 2)).Length)) / 2, currentTop);
+Console.WriteLine(pattern2, hist3, math3, rus3, average3);
 
 Console.ReadKey();
