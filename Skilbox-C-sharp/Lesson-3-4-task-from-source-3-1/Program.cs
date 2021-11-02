@@ -58,34 +58,45 @@
 //
 // User2 победил!
 
-int mode,startNumber, levelGame, gamerMove = 0;
-string gamer1, gamer2, levelText, currentGamer = "text";
+int mode = 1, startNumber, levelGame, gamerMove, newGame = 0, userSwitch = 0;
+string gamer1 = "", gamer2 = "", gamer3 = "", gamer4 = "", levelText, currentGamer;
 Random rand = new Random();
-/// <summary>
-/// Для реализации большего количество игроков по хорошему нужен массив, а мы как бы их ещё не проходили ))
-/// Плодить через переменные мне лень ))
-/// Потому в качестве усложнения выбрал разные уровни сложности и игру против ПК.
-/// Поэтому остоновимся на двух максимум.
-/// </summary>
 do
 {
     Console.WriteLine("Так как программа без проверок вводимых данных имейте совесть и вводите только то, что требуется :)");
-    Console.WriteLine("Поиграем ? Выбери режим: 1 = один игрок, 2 = два игрока, 0 = выход из игры.");
-    mode = int.Parse(Console.ReadLine());
+    if (newGame == 0)
+    {
+        Console.WriteLine("Поиграем ? Выбери режим: 1 = один игрок, 2 = два игрока, 3 = 3 игрока, 4 = 4 игрока, 0 = выход из игры.");
+        mode = int.Parse(Console.ReadLine());
+    }
 
     if (mode > 0)
     {        
-        Console.WriteLine("Введите имя первого игрока:");
-        gamer1 = Console.ReadLine();
-        if (mode == 2)
+        if (newGame == 0)
         {
-            Console.WriteLine("Введите имя второго игрока:");
-            gamer2 = Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine("Вторым игроком буду я, твой компьютер !");
-            gamer2 = "Твой ПК";
+            Console.WriteLine("Введите имя первого игрока:");
+            gamer1 = Console.ReadLine();
+
+            if (mode == 1)
+            {
+                Console.WriteLine("Вторым игроком буду я, твой компьютер !");
+                gamer2 = "Твой ПК";
+            }
+            if (mode >= 2)
+            {
+                Console.WriteLine("Введите имя второго игрока:");
+                gamer2 = Console.ReadLine();
+            }
+            if (mode >= 3)
+            {
+                Console.WriteLine("Введите имя третьего игрока:");
+                gamer3 = Console.ReadLine();
+            }
+            if (mode >= 4)
+            {
+                Console.WriteLine("Введите имя четвёртого игрока:");
+                gamer4 = Console.ReadLine();
+            }
         }
 
         Console.WriteLine("Выбери сложность. 1 = простая, 2 = сложная.");
@@ -147,14 +158,25 @@ do
             }
 
             startNumber -= gamerMove;
-            if(startNumber > 0)
+            if (startNumber > 0)
             {
-                if (currentGamer == gamer1) currentGamer = gamer2;
-                else currentGamer = gamer1;
+                if (currentGamer == gamer1) { currentGamer = gamer2; userSwitch = 1; }
+
+                if (currentGamer == gamer2 & mode <= 2 & userSwitch == 0) { currentGamer = gamer1; userSwitch = 1; }
+                if (currentGamer == gamer2 & mode >= 3 & userSwitch == 0) { currentGamer = gamer3; userSwitch = 1; }
+
+                if (currentGamer == gamer3 & mode == 3 & userSwitch == 0) { currentGamer = gamer1; userSwitch = 1; }
+                if (currentGamer == gamer3 & mode == 4 & userSwitch == 0) { currentGamer = gamer4; userSwitch = 1; }
+
+                if (currentGamer == gamer4 & userSwitch == 0) currentGamer = gamer1;
+
+                userSwitch = 0;
             }
             else
             {
                 Console.WriteLine($"ПОБЕДИЛ {currentGamer} !!!");
+                Console.WriteLine("Ревеньш = 1, Новая игра = 0.");
+                newGame = int.Parse(Console.ReadLine());
             }
         } while (startNumber > 0);
 
