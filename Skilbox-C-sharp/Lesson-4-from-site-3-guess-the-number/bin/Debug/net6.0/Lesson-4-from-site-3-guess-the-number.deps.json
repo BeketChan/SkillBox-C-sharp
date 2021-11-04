@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Lesson-4-from-site-3-guess-the-number/1.0.0": {
+        "runtime": {
+          "Lesson-4-from-site-3-guess-the-number.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Lesson-4-from-site-3-guess-the-number/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

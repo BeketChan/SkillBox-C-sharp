@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Lesson-3-4-task-from-source-3-1/1.0.0": {
+        "runtime": {
+          "Lesson-3-4-task-from-source-3-1.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Lesson-3-4-task-from-source-3-1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
