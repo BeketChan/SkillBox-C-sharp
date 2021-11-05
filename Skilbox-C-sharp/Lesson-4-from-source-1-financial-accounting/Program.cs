@@ -33,16 +33,13 @@
 int[] dohod = new int[12], rashod = new int[12];
 string[] mon = new string[12] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
 int currentLine = 1, min = 0, prf = 0;
+Random rand = new Random();
 
 Console.WriteLine("Программа работает только с целыми числами.");
-Console.WriteLine("Привет Бухгалтер ! Давай заполним доходы и расходы за прошедший год.");
-for(int i = 0; i < 11; i++)
+for(int i = 0; i < 12; i++)
 {
-    Console.WriteLine($"За месяц {mon[i]}");
-    Console.WriteLine("Доход, тыс.руб. =");
-    dohod[i] = int.Parse(Console.ReadLine());
-    Console.WriteLine("Расход, тыс. руб. =");
-    rashod[i] = int.Parse(Console.ReadLine());
+    dohod[i] = rand.Next(10,1000);
+    rashod[i] = rand.Next(10, 1000);
 }
 
 Console.Clear();
@@ -55,7 +52,7 @@ Console.Write("Расход, тыс. руб.");
 Console.SetCursorPosition(Console.WindowWidth / 4 * 3, currentLine);
 Console.Write("Прибыль, тыс. руб.\n");
 currentLine++;
-for (int i = 0; i < 11; i++)
+for (int i = 0; i < 12; i++)
 {
     Console.Write(mon[i]);
     Console.SetCursorPosition(Console.WindowWidth / 4, currentLine);
@@ -73,8 +70,8 @@ for (int i = 0; i < 11; i++)
 
 if (min != 0)
 {
-    Console.WriteLine("Месяцы с худшим доходом:");
-    for (int i = 0; i < 11; i++) if ((dohod[dohod[i] - rashod[i]]) == min) Console.Write($" {mon[i]}");
+    Console.WriteLine($"Месяцы с худшим доходом = {min} :");
+    for (int i = 0; i < 12; i++) if (dohod[i] - rashod[i] == min) Console.Write($" {mon[i]}");
 }
 
 Console.WriteLine($"\nКоличество месяцев с положительной прибылью = {prf}");

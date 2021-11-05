@@ -19,9 +19,17 @@ switch (mode)
 {
     case 1 :
         Console.WriteLine("Укажите количество строк в матрице:");
-        x1=int.Parse(Console.ReadLine());
+        do
+        {
+            x1 = int.Parse(Console.ReadLine());
+            if (x1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (x1 <= 0);
         Console.WriteLine("Укажите количество столбцов в матрице:");
-        y1 = int.Parse(Console.ReadLine());
+        do
+        {
+            y1 = int.Parse(Console.ReadLine());
+            if (y1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (y1 <= 0);
         Console.WriteLine("Укажите множитель:");
         mult = int.Parse(Console.ReadLine());
         break;
@@ -29,13 +37,29 @@ switch (mode)
     case 3 :
     case 4 :
         Console.WriteLine("Укажите количество строк в первой матрице:");
-        x1 = int.Parse(Console.ReadLine());
+        do
+        {
+            x1 = int.Parse(Console.ReadLine());
+            if (x1 <= 0)Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (x1 <= 0);
         Console.WriteLine("Укажите количество столбцов в первой матрице:");
-        y1 = int.Parse(Console.ReadLine());
+        do
+        {
+            y1 = int.Parse(Console.ReadLine());
+            if (y1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (y1 <= 0);
         Console.WriteLine("Укажите количество строк во второй матрице:");
-        x2 = int.Parse(Console.ReadLine());
+        do
+        {
+            x2 = int.Parse(Console.ReadLine());
+            if (x2 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (x2 <= 0);
         Console.WriteLine("Укажите количество столбцов во второй матрице:");
-        y2 = int.Parse(Console.ReadLine());
+        do
+        {
+            y2 = int.Parse(Console.ReadLine());
+            if (y2 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
+        } while (y2 <= 0);
         break;
 }
 
