@@ -32,7 +32,7 @@
 
 int[] dohod = new int[12], rashod = new int[12];
 string[] mon = new string[12] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
-int currentLine = 1, min = 0, prf = 0;
+int min = 0, prf = 0;
 Random rand = new Random();
 
 Console.WriteLine("Программа работает только с целыми числами.");
@@ -44,24 +44,10 @@ for(int i = 0; i < 12; i++)
 
 Console.Clear();
 Console.WriteLine("Сводная таблица за год.");
-Console.Write("Месяц");
-Console.SetCursorPosition(Console.WindowWidth / 4,currentLine);
-Console.Write("Доход, тыс. руб.");
-Console.SetCursorPosition(Console.WindowWidth / 2, currentLine);
-Console.Write("Расход, тыс. руб.");
-Console.SetCursorPosition(Console.WindowWidth / 4 * 3, currentLine);
-Console.Write("Прибыль, тыс. руб.\n");
-currentLine++;
+Console.WriteLine("Месяц             Доход, тыс. руб.    Расход, тыс. руб.   Прибыль, тыс. руб.");
 for (int i = 0; i < 12; i++)
 {
-    Console.Write(mon[i]);
-    Console.SetCursorPosition(Console.WindowWidth / 4, currentLine);
-    Console.Write(dohod[i]);
-    Console.SetCursorPosition(Console.WindowWidth / 2, currentLine);
-    Console.Write(rashod[i]);
-    Console.SetCursorPosition(Console.WindowWidth / 4 * 3, currentLine);
-    Console.Write($"{dohod[i] - rashod[i]}\n");
-    currentLine++;
+    Console.WriteLine($"{mon[i],10}{dohod[i],20}{rashod[i],20}{dohod[i] - rashod[i],20}");
 
     if (i == 0) min = (dohod[i] - rashod[i]);
     else if (min > (dohod[i] - rashod[i])) min = (dohod[i] - rashod[i]);
