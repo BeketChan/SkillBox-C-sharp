@@ -30,16 +30,17 @@
 // Худшая прибыль в месяцах: 7, 4, 1, 5, 12
 // Месяцев с положительной прибылью: 10
 
-int[] dohod = new int[12], rashod = new int[12];
+int[] dohod = new int[12], rashod = new int[12], profit = new int[12];
 string[] mon = new string[12] { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
-int min = 0, prf = 0;
+int[] worstProfit = new int[3];
+int prf = 0;
 Random rand = new Random();
 
 Console.WriteLine("Программа работает только с целыми числами.");
 for(int i = 0; i < 12; i++)
 {
-    dohod[i] = rand.Next(10,1000);
-    rashod[i] = rand.Next(10, 1000);
+    dohod[i] = rand.Next(10, 10000);
+    rashod[i] = rand.Next(10, 10000);
 }
 
 Console.Clear();
@@ -47,17 +48,32 @@ Console.WriteLine("Сводная таблица за год.");
 Console.WriteLine("Месяц             Доход, тыс. руб.    Расход, тыс. руб.   Прибыль, тыс. руб.");
 for (int i = 0; i < 12; i++)
 {
-    Console.WriteLine($"{mon[i],10}{dohod[i],20}{rashod[i],20}{dohod[i] - rashod[i],20}");
-
-    if (i == 0) min = (dohod[i] - rashod[i]);
-    else if (min > (dohod[i] - rashod[i])) min = (dohod[i] - rashod[i]);
+    profit[i] = dohod[i] - rashod[i];
+    Console.WriteLine($"{mon[i],10}{dohod[i],20:0,0}{rashod[i],20:0,0}{profit[i],20:0,0}");    
     if ((dohod[i] - rashod[i]) > 0) prf++;
 }
 
-if (min != 0)
+Array.Sort(profit);
+for (int i = 0; i < worstProfit.Length; i++)
 {
-    Console.WriteLine($"Месяцы с худшим доходом = {min} :");
-    for (int i = 0; i < 12; i++) if (dohod[i] - rashod[i] == min) Console.Write($" {mon[i]}");
+    if (i == 0) worstProfit[i] = profit[i];
+    else if (worstProfit[i - 1] == profit[i]) continue; // если будет несколько одинаковых значений
+    else worstProfit[i] = profit[i];
+}
+Console.WriteLine("\nМесяца с тремя наихудшими показателями :");
+for (int i = 0;i < profit.Length; i++)
+{
+    for (int j = 0; j < worstProfit.Length; j++)
+    {
+        if (profit[i] == worstProfit[j])
+        {
+            for(int k = 0; k < profit.Length; k++)
+            {
+                if(dohod[k] - rashod[k] == worstProfit[j])Console.Write(mon[k]);
+            }
+            Console.Write($" = {profit[i]:0,0}\n");
+        }
+    }
 }
 
 Console.WriteLine($"\nКоличество месяцев с положительной прибылью = {prf}");

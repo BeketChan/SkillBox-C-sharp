@@ -76,7 +76,7 @@ if (mode == 4 & !(x1 == y2 || x2 == y1))
 }
 
 // заполняем матрицы
-int[,] matrix1 = new int[x1, y1], matrix2 = new int[x2, y2], matrix3 = new int[x1, y2];
+int[,] matrix1 = new int[x1 + 1, y1 + 1], matrix2 = new int[x2 + 1, y2 + 1], matrix3 = new int[x1 + 1, y2 + 1];
 if (mode < 99)
 {
     Random rnd = new Random();
