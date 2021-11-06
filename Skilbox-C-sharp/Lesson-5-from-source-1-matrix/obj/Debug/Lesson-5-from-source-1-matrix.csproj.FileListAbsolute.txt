@@ -1,0 +1,8 @@
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\bin\Debug\Lesson-5-from-source-1-matrix.exe.config
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\bin\Debug\Lesson-5-from-source-1-matrix.exe
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\bin\Debug\Lesson-5-from-source-1-matrix.pdb
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\obj\Debug\Lesson-5-from-source-1-matrix.csproj.AssemblyReference.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\obj\Debug\Lesson-5-from-source-1-matrix.csproj.SuggestedBindingRedirects.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\obj\Debug\Lesson-5-from-source-1-matrix.csproj.CoreCompileInputs.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\obj\Debug\Lesson-5-from-source-1-matrix.exe
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-1-matrix\obj\Debug\Lesson-5-from-source-1-matrix.pdb
