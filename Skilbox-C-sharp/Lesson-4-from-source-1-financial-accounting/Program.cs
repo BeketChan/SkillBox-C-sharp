@@ -39,8 +39,8 @@ Random rand = new Random();
 Console.WriteLine("Программа работает только с целыми числами.");
 for(int i = 0; i < 12; i++)
 {
-    dohod[i] = rand.Next(10, 10000);
-    rashod[i] = rand.Next(10, 10000);
+    dohod[i] = rand.Next(10, 11);
+    rashod[i] = rand.Next(10, 11);
 }
 
 Console.Clear();
@@ -54,28 +54,27 @@ for (int i = 0; i < 12; i++)
 }
 
 Array.Sort(profit);
-for (int i = 0; i < worstProfit.Length; i++)
+int numer = 0;
+for (int i = 0; numer < worstProfit.Length & i < profit.Length; i++)
 {
-    if (i == 0) worstProfit[i] = profit[i];
-    else if (worstProfit[i - 1] == profit[i]) continue; // если будет несколько одинаковых значений
-    else worstProfit[i] = profit[i];
+    if (i == 0) worstProfit[numer++] = profit[i];
+    else if (worstProfit[numer - 1] == profit[i]) continue;
+    else worstProfit[numer++] = profit[i];
 }
+
 Console.WriteLine("\nМесяца с тремя наихудшими показателями :");
-for (int i = 0;i < profit.Length; i++)
+
+for (int j = 0; j < worstProfit.Length; j++)
 {
-    for (int j = 0; j < worstProfit.Length; j++)
+    if (j > 0 && worstProfit[j] == worstProfit[j - 1]) continue;
+    else
     {
-        if (profit[i] == worstProfit[j])
+        for (int k = 0; k < profit.Length; k++)
         {
-            for(int k = 0; k < profit.Length; k++)
-            {
-                if(dohod[k] - rashod[k] == worstProfit[j])Console.Write(mon[k]);
-            }
-            Console.Write($" = {profit[i]:0,0}\n");
+            if (dohod[k] - rashod[k] == worstProfit[j]) Console.Write($"{mon[k]} ");
         }
+        Console.Write($" = {worstProfit[j]}\n");
     }
 }
-
 Console.WriteLine($"\nКоличество месяцев с положительной прибылью = {prf}");
-
 Console.ReadLine();
