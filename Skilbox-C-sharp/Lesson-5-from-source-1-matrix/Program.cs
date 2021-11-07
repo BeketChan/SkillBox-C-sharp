@@ -15,31 +15,39 @@ namespace Lesson_5_from_source_1_matrix
     internal class Program
     {
         /// <summary>
+        /// Печать матрицы на экран.
+        /// </summary>
+        /// <param name="matrix">Матрица.</param>
+        static void MatrixPrint(int[,] matrix)
+        {
+            for (int x = 0; x < matrix.GetLength(0); x++)
+            {
+                for (int y = 0; y < matrix.GetLength(1); y++)
+                    Console.Write($"{matrix[x, y]}\t");
+                Console.WriteLine();
+            }
+        }
+        
+        /// <summary>
         /// Простые операции с одной матрицей
         /// </summary>
         /// <param name="mode">1 = умножить</param>
         /// <param name="mult">одиночный оператор</param>
         /// <param name="matrix1">матрица</param>
         /// <returns></returns>
-        static void MatrixCalc(int mode, int mult, int[,] matrix1)
+        static int[,] MatrixCalc(int mode, int mult, int[,] matrix1)
         {
+            int[,] matrix3 = new int[matrix1.GetLength(0), matrix1.GetLength(1)];
+            
             // mode в данном методе не испольщзуется, но я добавил его для единообразия.
             // Да и может понадобится добавлять другие простые операции в одной матрицей.
-            int x1 = matrix1.GetUpperBound(0), y1 = matrix1.GetUpperBound(1);
-            Console.WriteLine("Матрица");
+            int x1 = matrix1.GetLength(0), y1 = matrix1.GetLength(1);
             for (int x = 0; x < x1; x++)
             {
                 for (int y = 0; y < y1; y++)
-                    Console.Write($"{matrix1[x, y]}\t");
-                Console.WriteLine();
+                    matrix3[x, y] = matrix1[x, y] * mult;
             }
-            Console.WriteLine($"Умножить на {mult} = ");
-            for (int x = 0; x < x1; x++)
-            {
-                for (int y = 0; y < y1; y++)
-                    Console.Write($"{matrix1[x, y] * mult}\t");
-                Console.WriteLine();
-            }
+            return matrix3;
         }
 
         /// <summary>
@@ -49,67 +57,28 @@ namespace Lesson_5_from_source_1_matrix
         /// <param name="matrix1">первая матрица</param>
         /// <param name="matrix2">вторая матрица</param>
         /// <returns></returns>
-        static void MatrixCalc(int mode, int[,] matrix1, int[,] matrix2)
+        static int[,] MatrixCalc(int mode, int[,] matrix1, int[,] matrix2)
         {
-            int x1 = matrix1.GetUpperBound(0), y1 = matrix1.GetUpperBound(1);
-            int x2 = matrix2.GetUpperBound(0), y2 = matrix2.GetUpperBound(1);
+            int x1 = matrix1.GetLength(0), y1 = matrix1.GetLength(1);
+            int x2 = matrix2.GetLength(0), y2 = matrix2.GetLength(1);
             int[,] matrix3 = new int[x1, y2];
             switch (mode)
             {
                 case 2:
                 case 3:
-                    Console.WriteLine("Матрица 1");
                     for (int x = 0; x < x1; x++)
-                    {
                         for (int y = 0; y < y1; y++)
-                            Console.Write($"{matrix1[x, y]}\t");
-                        Console.WriteLine();
-                    }
-                    if (mode == 2) Console.WriteLine("сложить с Матрицей 2");
-                    else Console.WriteLine("вычесть Матрицу 2");
-                    for (int x = 0; x < x1; x++)
-                    {
-                        for (int y = 0; y < y1; y++)
-                            Console.Write($"{matrix2[x, y]}\t");
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine("Результат операции = ");
-                    for (int x = 0; x < x1; x++)
-                    {
-                        for (int y = 0; y < y1; y++)
-                            if (mode == 2) Console.Write($"{matrix1[x, y] + matrix2[x, y]}\t");
-                            else Console.Write($"{matrix1[x, y] - matrix2[x, y]}\t");
-                        Console.WriteLine();
-                    }
+                            if (mode == 2) matrix3[x, y] = matrix1[x, y] + matrix2[x, y];
+                            else matrix3[x, y] = matrix1[x, y] - matrix2[x, y];
                     break;
                 case 4:
-                    Console.WriteLine("Матрица 1");
                     for (int x = 0; x < x1; x++)
-                    {
-                        for (int y = 0; y < y1; y++)
-                            Console.Write($"{matrix1[x, y]}\t");
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine("умножить на Матрицу 2");
-                    for (int x = 0; x < x2; x++)
-                    {
                         for (int y = 0; y < y2; y++)
-                            Console.Write($"{matrix2[x, y]}\t");
-                        Console.WriteLine();
-                    }
-                    Console.WriteLine("Результат операции = ");
-                    for (int x = 0; x < x1; x++)
-                    {
-                        for (int y = 0; y < y2; y++)
-                        {
                             for (int i = 0; i < y1; i++)
                                 matrix3[x, y] += matrix1[x, i] * matrix2[i, y];
-                            Console.Write($"{matrix3[x, y]}\t");
-                        }
-                        Console.WriteLine();
-                    }
                     break;
             }
+            return matrix3;
         }
 
         /// <summary>
@@ -185,13 +154,15 @@ namespace Lesson_5_from_source_1_matrix
             }
 
             // заполняем матрицы
-            int[,] matrix1 = new int[x1 + 1, y1 + 1], matrix2 = new int[x2 + 1, y2 + 1];
+            int[,] matrix1 = new int[x1, y1], matrix2 = new int[x2, y2], matrix3;
             if (mode < 99)
             {
                 Random rnd = new Random();
+
                 for (int x = 0; x < x1; x++)
                     for (int y = 0; y < y1; y++)
                         matrix1[x, y] = rnd.Next(1, 100);
+
                 if (mode > 0)
                     for (int x = 0; x < x2; x++)
                         for (int y = 0; y < y2; y++)
@@ -201,10 +172,34 @@ namespace Lesson_5_from_source_1_matrix
             // выполнение операций
             switch (mode)
             {
-                case 1: MatrixCalc(mode, mult, matrix1); break;
+                case 1:
+                    matrix3 = MatrixCalc(mode, mult, matrix1);
+                    Console.WriteLine("Матрица");
+                    MatrixPrint(matrix1);
+                    Console.WriteLine($"умножить на {mult}");
+                    Console.WriteLine("Результат операции = ");
+                    MatrixPrint(matrix3);
+                    break;
                 case 2:
-                case 3: MatrixCalc(mode, matrix1, matrix2); break;
-                case 4: MatrixCalc(mode, matrix1, matrix2); break;
+                case 3:
+                    matrix3 = MatrixCalc(mode, matrix1, matrix2);
+                    Console.WriteLine("Матрица 1");
+                    MatrixPrint(matrix1);
+                    if (mode == 2) Console.WriteLine("сложить с Матрицей 2");
+                    else Console.WriteLine("вычесть Матрицу 2");
+                    MatrixPrint(matrix2);
+                    Console.WriteLine("Результат операции = ");
+                    MatrixPrint(matrix3);
+                    break;
+                case 4:
+                    matrix3 = MatrixCalc(mode, matrix1, matrix2);
+                    Console.WriteLine("Матрица 1");
+                    MatrixPrint(matrix1);
+                    Console.WriteLine("перемнодить на Матрицу 2");
+                    MatrixPrint(matrix2);
+                    Console.WriteLine("Результат операции = ");
+                    MatrixPrint(matrix3);
+                    break;
             }
 
             Console.ReadLine();

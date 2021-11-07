@@ -29,18 +29,7 @@ namespace Lesson_5_from_source_2_text_methods
         /// <returns></returns>
         public static string[] SentenceSplit(string Sent)
         {
-            int wordsQty = 0;
-            for (int i = 0; i < Sent.Length; i++)
-            {
-                if (Sent.Substring(i, 1) == " " | Sent.Substring(i, 1) == "." | Sent.Substring(i, 1) == ",") wordsQty++;
-            }
-            string[] words = new string[wordsQty + 1];
-            int wordNum = 0;
-            for (int i = 0; i < Sent.Length; i++)
-            {
-                if (Sent.Substring(i, 1) == " " | Sent.Substring(i, 1) == "." | Sent.Substring(i, 1) == ",") wordNum++;
-                else words[wordNum] += Sent.Substring(i, 1);
-            }
+            string[] words = Sent.Split(' ',',','.');
             return words;
         }
 
@@ -54,9 +43,10 @@ namespace Lesson_5_from_source_2_text_methods
             string[] words = SentenceSplit(Sent);
             string minWord = Sent;
             int min = Sent.Length;
+
             for (int i = 0; i < words.Length; i++)
             {
-                if (words[i].Length < min)
+                if (words[i].Length < min & words[i].Length > 0)
                 {
                     min = words[i].Length;
                     minWord = words[i];
@@ -74,17 +64,36 @@ namespace Lesson_5_from_source_2_text_methods
         {
             string[] words = SentenceSplit(Sent);
             int max = 0, maxQty = 0, current = 0;
+
             for (int i = 0; i < words.Length; i++)
                 if (words[i].Length > max)
                     max = words[i].Length;
+
             for (int i = 0; i < words.Length; i++)
                 if (words[i].Length == max)
                     maxQty++;
+
             string[] longWords = new string[maxQty];
+
             for (int i = 0;i<words.Length;i++)
                 if(words[i].Length == max)
                     longWords[current++] = words[i];
             return longWords;
+        }
+
+        /// <summary>
+        /// Убираем дубликаты букв в предложении.
+        /// </summary>
+        /// <param name="Sent">Предложение.</param>
+        /// <returns></returns>
+        public static string RemuveDublLeters(string Sent)
+        {
+            string newSent = Sent.Substring(0, 1);
+            for (int i = 1; i < Sent.Length; i++)
+            {
+                if (Sent.Substring(i, 1) != Sent.Substring(i - 1, 1)) newSent += Sent.Substring(i, 1);
+            }
+            return newSent;
         }
 
         /// <summary>
@@ -107,6 +116,7 @@ namespace Lesson_5_from_source_2_text_methods
                     Console.WriteLine("Слова с максимальным количеством букв:");
                     foreach (string e in longWords) if (e.Length > 0) Console.WriteLine(e);
                     break;
+                case 3: Console.WriteLine(RemuveDublLeters(sentence)); break;
             }
             Console.ReadLine();
         }        
