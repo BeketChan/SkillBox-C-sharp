@@ -1,0 +1,8 @@
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\bin\Debug\Lesson-6-from-sourse-1.exe.config
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\bin\Debug\Lesson-6-from-sourse-1.exe
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\bin\Debug\Lesson-6-from-sourse-1.pdb
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\obj\Debug\Lesson-6-from-sourse-1.csproj.AssemblyReference.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\obj\Debug\Lesson-6-from-sourse-1.csproj.SuggestedBindingRedirects.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\obj\Debug\Lesson-6-from-sourse-1.csproj.CoreCompileInputs.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\obj\Debug\Lesson-6-from-sourse-1.exe
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-sourse-1\obj\Debug\Lesson-6-from-sourse-1.pdb
