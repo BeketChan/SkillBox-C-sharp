@@ -15,6 +15,32 @@ namespace Lesson_5_from_source_1_matrix
     internal class Program
     {
         /// <summary>
+        /// Проверка корректности ввода целых чисел в указанный диапазон с возвратом прошедшего проверку значения.
+        /// </summary>
+        /// <param name="min">От</param>
+        /// <param name="max">До</param>
+        /// <returns></returns>
+        static int CheckValidInput(int min, int max)
+        {
+            int N;
+            bool check = false;
+            do
+            {
+                try
+                {
+                    N = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    N = 0;
+                }
+                if (N >= 1 && N <= 10) check = true;
+                else Console.WriteLine("Введите корректное число !");
+            } while (!check);
+            return N;
+        }
+
+        /// <summary>
         /// Печать матрицы на экран.
         /// </summary>
         /// <param name="matrix">Матрица.</param>
@@ -96,48 +122,24 @@ namespace Lesson_5_from_source_1_matrix
             switch (mode)
             {
                 case 1:
-                    Console.WriteLine("Укажите количество строк в матрице:");
-                    do
-                    {
-                        x1 = int.Parse(Console.ReadLine());
-                        if (x1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (x1 <= 0);
-                    Console.WriteLine("Укажите количество столбцов в матрице:");
-                    do
-                    {
-                        y1 = int.Parse(Console.ReadLine());
-                        if (y1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (y1 <= 0);
+                    Console.WriteLine("Укажите количество строк в матрице от 1 до 10:");
+                    x1 = CheckValidInput(1, 10);
+                    Console.WriteLine("Укажите количество столбцов в матрице от 1 до 10:");
+                    y1 = CheckValidInput(1, 10);
                     Console.WriteLine("Укажите множитель:");
-                    mult = int.Parse(Console.ReadLine());
+                    mult = CheckValidInput(1, 10);
                     break;
                 case 2:
                 case 3:
                 case 4:
-                    Console.WriteLine("Укажите количество строк в первой матрице:");
-                    do
-                    {
-                        x1 = int.Parse(Console.ReadLine());
-                        if (x1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (x1 <= 0);
-                    Console.WriteLine("Укажите количество столбцов в первой матрице:");
-                    do
-                    {
-                        y1 = int.Parse(Console.ReadLine());
-                        if (y1 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (y1 <= 0);
-                    Console.WriteLine("Укажите количество строк во второй матрице:");
-                    do
-                    {
-                        x2 = int.Parse(Console.ReadLine());
-                        if (x2 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (x2 <= 0);
-                    Console.WriteLine("Укажите количество столбцов во второй матрице:");
-                    do
-                    {
-                        y2 = int.Parse(Console.ReadLine());
-                        if (y2 <= 0) Console.WriteLine("Введено неверное значение ! Требуется целое положительное число !");
-                    } while (y2 <= 0);
+                    Console.WriteLine("Укажите количество строк в первой матрице от 1 до 10:");
+                    x1 = CheckValidInput(1, 10);
+                    Console.WriteLine("Укажите количество столбцов в первой матрице от 1 до 10:");
+                    y1 = CheckValidInput(1, 10);
+                    Console.WriteLine("Укажите количество строк во второй матрице от 1 до 10:");
+                    x2 = CheckValidInput(1, 10);
+                    Console.WriteLine("Укажите количество столбцов во второй матрице от 1 до 10:");
+                    y2 = CheckValidInput(1, 10);
                     break;
             }
 
