@@ -190,6 +190,7 @@ namespace Lesson_6_from_sourse_1
 
             Console.WriteLine($"Чего изволите ? 1 = расчитать количество групп для числа {N:0,0}, 2 = сохранить заполненные группы в файл");
             int mode = int.Parse((string)Console.ReadLine());
+
             switch (mode)
             {
                 case 1:
@@ -200,6 +201,8 @@ namespace Lesson_6_from_sourse_1
                     zip = CheckValidInput(1, 2);
                     break;
             }
+
+            DateTime dateTime = DateTime.Now;
 
             if (zip > 0)
             {
@@ -216,6 +219,9 @@ namespace Lesson_6_from_sourse_1
 
                 if (zip == 2) Console.WriteLine($"Файл {path} сохранён.");
             }
+
+            TimeSpan timeSpan = DateTime.Now.Subtract(dateTime);
+            Console.WriteLine($"На исполнение ушло {timeSpan.Milliseconds} милесекунд.");
 
             Console.ReadLine();
         }
