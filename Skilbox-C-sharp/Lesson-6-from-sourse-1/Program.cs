@@ -33,17 +33,6 @@ namespace Lesson_6_from_sourse_1
         }
         
         /// <summary>
-        /// Проверка завершения распределения чисел по группам.
-        /// </summary>
-        /// <param name="mas">Базовый массив.</param>
-        /// <returns></returns>
-        static bool EndCheck(int[] mas)
-        {
-            for (int i = 0; i < mas.Length; i++) if (mas[i] != 0) return false;
-            return true;
-        }
-
-        /// <summary>
         /// Поиск количества групп от числа.
         /// </summary>
         /// <param name="N">Число.</param>
@@ -51,34 +40,11 @@ namespace Lesson_6_from_sourse_1
         static int FindM(int N)
         {
             int M = 0;
-            int[] baseMas = new int[N], tempMas = new int[N];
-
-            for (int i = 0; i < N; i++) baseMas[i] = i + 1;
-            do
+            for (int i = 1;i < N; i++)
             {
                 M++;
-                for (int i = 0; i < N; i++) tempMas[i] = baseMas[i];
-
-                for (int i = 0; i < N; i++)
-                {
-                    if (tempMas[i] == 0) continue;
-                    else
-                    {
-                        for (int j = i; j < N; j++)
-                        {
-                            if (j == i) continue;
-                            else
-                                if (tempMas[j] != 0 && tempMas[i] % tempMas[j] != 0 && tempMas[j] % tempMas[i] != 0) continue;
-                            else tempMas[j] = 0;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < N; i++)
-                    if (tempMas[i] != 0) baseMas[i] = 0;
-
-            } while (!EndCheck(baseMas));
-
+                i *= 2;
+            }
             return M;
         }
 
@@ -87,61 +53,24 @@ namespace Lesson_6_from_sourse_1
         /// </summary>
         /// <param name="N">Число.</param>
         /// <returns></returns>
-        static string[] FillM(int N)
+        static void FillM(int N, string path)
         {
-            int M = 0;
-            int[] baseMas = new int[N], tempMas = new int[N];
-            string[] itogMas = new string[FindM(N)];
-
-            for (int i = 0; i < N; i++) baseMas[i] = i + 1;
-            do
-            {
-                M++;
-                for (int i = 0; i < N; i++) tempMas[i] = baseMas[i];
-
-                for (int i = 0; i < N; i++)
-                {
-                    if (tempMas[i] == 0) continue;
-                    else
-                    {
-                        for (int j = i; j < N; j++)
-                        {
-                            if (j == i) continue;
-                            else
-                                if (tempMas[j] != 0 && tempMas[i] % tempMas[j] != 0 && tempMas[j] % tempMas[i] != 0) continue;
-                            else tempMas[j] = 0;
-                        }
-                    }
-                }
-
-                itogMas[M - 1] = "";
-                for (int i = 0; i < N; i++)
-                {
-                    if (tempMas[i] != 0)
-                    {
-                        baseMas[i] = 0;
-                        if (itogMas[M - 1] == "") itogMas[M - 1] = Convert.ToString(tempMas[i]);
-                        else itogMas[M - 1] += "," + Convert.ToString(tempMas[i]);
-                    }
-                    
-                }                    
-
-            } while (!EndCheck(baseMas));
-
-            return itogMas;
-        }
-
-        /// <summary>
-        /// Сохранить данные в указанный файл.
-        /// </summary>
-        /// <param name="path">Файл.</param>
-        /// <param name="rows">Массив с данными.</param>
-        static void SaveInFile(string path, string[] rows)
-        {
+            int M = FindM(N);
+            int current = 1;
+            string line = "";
             using (StreamWriter sr = File.CreateText(path))
             {
-                for (int i = 0; i < rows.Length; i++)
-                    sr.WriteLine(rows[i]);
+                for (int i = 1; i <= N; i++)
+                {
+                    if (i == current) line = i.ToString();
+                    else line += $",{i}";
+
+                    if (i == current * 2 - 1 || i == N)
+                    {
+                        current *= 2;
+                        sr.WriteLine(line);
+                    }
+                }
             }
         }
 
@@ -171,14 +100,13 @@ namespace Lesson_6_from_sourse_1
         static void Main(string[] args)
         {
             string path = "value.txt";
-            bool check = false;
             int N = 0;
             int zip = 0;
 
             if (!File.Exists(path)) using (StreamWriter sw = new StreamWriter(path, append: false)) //File.CreateText(path))
                 {
-                    Console.WriteLine("Файл с данными не найден. Создадим новый. Введите целое число от 1 до 100 000:");
-                    N = CheckValidInput(1, 100_000);
+                    Console.WriteLine("Файл с данными не найден. Создадим новый. Введите целое число от 1 до 1 000 000 000:");
+                    N = CheckValidInput(1, 1_000_000_000);
                     sw.WriteLine(N);
                 }
             else
@@ -206,10 +134,9 @@ namespace Lesson_6_from_sourse_1
 
             if (zip > 0)
             {
-                string[] itogMas = FillM(N);
                 path = "result.txt";
                 string pathZip = "result.zip";
-                SaveInFile(path, itogMas);
+                FillM(N,path);
 
                 if (zip == 1)
                 {
