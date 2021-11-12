@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace lesson_7
+namespace Lesson_7
 {
     
     internal class Worker

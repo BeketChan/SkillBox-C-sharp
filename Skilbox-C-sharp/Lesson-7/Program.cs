@@ -1,5 +1,4 @@
-﻿using lesson_7;
-using System;
+﻿using System;
 using System.IO;
 
 namespace Lesson_7
@@ -9,7 +8,10 @@ namespace Lesson_7
         static void Main(string[] args)
         {
             string path = "workers.csv";
-            Workers[] workers;
+            Workers workers = new Workers(path);
+
+            Console.WriteLine("Текущий список работников:");
+            workers.InConsole();
 
             int mode;
             do
@@ -21,16 +23,12 @@ namespace Lesson_7
                     case 1:
                         if (File.Exists(path))
                         {
-                            //empDB = GetDB(path);
-                            //PrintDB(empDB);
+                            
                         }
                         else Console.WriteLine("Базы по сотрудникам ещё не существует.");
                         break;
                     case 2:
-                        //string[] empCard = EmployeCard();
-                        if (!File.Exists(path)) using (StreamWriter sw = File.CreateText(path)) ;
-                        //empDB = GetDB(path);
-                        //AddInDB(path, empDB.Length, empCard);
+                        
                         break;
                 }
             } while (mode > 0);

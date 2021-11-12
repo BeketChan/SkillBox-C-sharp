@@ -112,8 +112,18 @@ namespace Lesson_6_from_sourse_1
             else
             {
                 using (StreamReader sr = new StreamReader(path))
-                    N = int.Parse(sr.ReadLine());
-                Console.WriteLine($"Подгрузил число {N}");
+                {
+                    try
+                    {
+                        N = int.Parse(sr.ReadLine());
+                        Console.WriteLine($"Подгрузил число {N}");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Файл с данными содержит некорректные данные. Введите целое число от 1 до 1 000 000 000:");
+                        N = CheckValidInput(1, 1_000_000_000);
+                    }
+                }
             }
 
             Console.WriteLine($"Чего изволите ? 1 = расчитать количество групп для числа {N:0,0}, 2 = сохранить заполненные группы в файл");
