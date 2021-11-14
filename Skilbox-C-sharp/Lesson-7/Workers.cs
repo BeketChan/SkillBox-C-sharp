@@ -31,7 +31,7 @@ namespace Lesson_7
         {
             this.path = path;
             index = 0;
-            titles = new string[0];
+            titles = new string[10];
             workers = new Worker[1];
 
             Load();
@@ -55,11 +55,57 @@ namespace Lesson_7
         /// Добавление нового работника.
         /// </summary>
         /// <param name="newWorker">Новый работник.</param>
-        private void AddRow(Worker newWorker)
+        public void AddRow(Worker newWorker)
         {
             Resize(index >= workers.Length);
             workers[index] = newWorker;
             index++;
+        }
+
+        /// <summary>
+        /// Удаление работника из списка.
+        /// </summary>
+        /// <param name="lastName">Фамилия.</param>
+        /// <param name="firstName">Имя.</param>
+        /// <param name="middleName">Отчество.</param>
+        public void DeleteRow(string lastName, string firstName, string middleName)
+        {
+            int i = 0;
+            bool deletCheck = false;
+            for (i = 0; i < index; i++)
+                if ((workers[i] != null) && (lastName == workers[i].LastName) && (firstName == workers[i].FirstName) && (middleName == workers[i].MiddleName))
+                {
+                    workers[i] = null;
+                    Console.WriteLine($"{lastName} {firstName} {middleName} удалён из списка.");
+                    deletCheck = true;
+                    break;
+                }
+            if (!deletCheck) Console.WriteLine($"{lastName} {firstName} {middleName} не найдет в списе.");
+        }
+
+        /// <summary>
+        /// Фильтрация сотрудников по дате дня рождения.
+        /// </summary>
+        /// <param name="date1">Начало периода.</param>
+        /// <param name="date2">Конец периода.</param>
+        public void FiltrBirthday(DateTime date1, DateTime date2)
+        {
+            for(int i=0; i<index; i++)
+            {
+                if ((workers[i] != null) && !((workers[i].Birthday >= date1) && (workers[i].Birthday <= date2)))
+                    workers[i] = null;
+            }
+            Console.WriteLine("Записи вне фильтра удалены из списка.");
+            InConsole();
+        }
+
+        /// <summary>
+        /// Сортировка по дню рождения.
+        /// </summary>
+        public void SortBirthday()
+        {
+            // подсмотрел тут https://social.msdn.microsoft.com/Forums/ru-RU/2d1efa85-11cc-4a28-8264-e72822bcc47f/1057108610881090108010881086107410821072?forum=programminglanguageru
+            Array.Sort(workers, new Comparison<Worker>((a, b) => a.Birthday.CompareTo(b.Birthday)));
         }
 
         /// <summary>
@@ -71,21 +117,29 @@ namespace Lesson_7
             {
                 using (StreamReader sr = new StreamReader(path))
                 {
-                    titles = sr.ReadLine().Split(',');
-                    while (!sr.EndOfStream)
+                    try
                     {
-                        string[] row = sr.ReadLine().Split(',');
-                        AddRow(new Worker(Convert.ToDateTime(row[0]),
-                                          Convert.ToDateTime(row[1]),
-                                          Convert.ToDateTime(row[2]),
-                                          row[3],
-                                          row[4],
-                                          row[5],
-                                          row[6],
-                                          row[7],
-                                          Convert.ToInt32(row[8]),
-                                          Convert.ToDouble(row[9])));
+                        titles = sr.ReadLine().Split('#');
+                        while (!sr.EndOfStream)
+                        {
+                            string[] row = sr.ReadLine().Split('#');
+                            AddRow(new Worker(Convert.ToDateTime(row[0]),
+                                              Convert.ToDateTime(row[1]),
+                                              Convert.ToDateTime(row[2]),
+                                              row[3],
+                                              row[4],
+                                              row[5],
+                                              row[6],
+                                              row[7],
+                                              Convert.ToInt32(row[8]),
+                                              Convert.ToDouble(row[9])));
 
+                        }
+                    }
+                    catch
+                    {
+                        titles = "Дата создания,Дата обновления,День рождения,Фамилия,Имя,Отчество,Место рождения,Комментарий,Возраст,Рост".Split(',');
+                        Console.WriteLine("Файла со списком сотрудников не существует !");
                     }
                 }
             }
@@ -104,7 +158,7 @@ namespace Lesson_7
             string row;
             using (StreamWriter sw = new StreamWriter(path))
             {
-                row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
+                row = string.Format("{0}#{1}#{2}#{3}#{4}#{5}#{6}#{7}#{8}#{9}",
                                         titles[0],
                                         titles[1],
                                         titles[2],
@@ -116,20 +170,23 @@ namespace Lesson_7
                                         titles[8],
                                         titles[9]);
                 sw.WriteLine(row);
-                for (int i = 0; i < workers.Length; i++)
+                for (int i = 0; i < index; i++)
                 {
-                    row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
-                                        workers[0],
-                                        workers[1],
-                                        workers[2],
-                                        workers[3],
-                                        workers[4],
-                                        workers[5],
-                                        workers[6],
-                                        workers[7],
-                                        workers[8],
-                                        workers[9]);
-                    sw.WriteLine(row);
+                    if (workers[i] != null)
+                    {
+                        row = string.Format("{0}#{1}#{2}#{3}#{4}#{5}#{6}#{7}#{8}#{9}",
+                                        workers[i].AddDate,
+                                        workers[i].UpdateDate,
+                                        workers[i].Birthday,
+                                        workers[i].LastName,
+                                        workers[i].FirstName,
+                                        workers[i].MiddleName,
+                                        workers[i].BirthPlace,
+                                        workers[i].Comment,
+                                        workers[i].Age,
+                                        workers[i].Height);
+                        sw.WriteLine(row);
+                    }   
                 }
             }
         }
@@ -141,7 +198,7 @@ namespace Lesson_7
         {
             if (index > 0)
             {
-                Console.WriteLine("{0,10},{1,10},{2,10},{3,10},{4,10},{5,10},{6,10},{7,10},{8,10},{9,10},{10,10}",
+                Console.WriteLine("{0,20}{1,20}{2,20}{3,10}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}",
                                         titles[0],
                                         titles[1],
                                         titles[2],
@@ -152,19 +209,20 @@ namespace Lesson_7
                                         titles[7],
                                         titles[8],
                                         titles[9]);
-                for (int i = 0; i < workers.Length; i++)
+                for (int i = 0; i < index; i++)
                 {
-                    Console.WriteLine("{0,10},{1,10},{2,10},{3,10},{4,10},{5,10},{6,10},{7,10},{8,10},{9,10},{10,10}",
-                                        workers[0],
-                                        workers[1],
-                                        workers[2],
-                                        workers[3],
-                                        workers[4],
-                                        workers[5],
-                                        workers[6],
-                                        workers[7],
-                                        workers[8],
-                                        workers[9]);
+                    if (workers[i] != null)
+                        Console.WriteLine("{0,20:d}{1,20:d}{2,20:d}{3,10}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}",
+                                            workers[i].AddDate,
+                                            workers[i].UpdateDate,
+                                            workers[i].Birthday,
+                                            workers[i].LastName,
+                                            workers[i].FirstName,
+                                            workers[i].MiddleName,
+                                            workers[i].BirthPlace,
+                                            workers[i].Comment,
+                                            workers[i].Age,
+                                            workers[i].Height);
                 }
             }
             else Console.WriteLine("Нет данных для вывода в консоль !");
@@ -173,7 +231,7 @@ namespace Lesson_7
         /// <summary>
         /// Количество работников.
         /// </summary>
-        public int Count { get { return this.index; } }
+        public int Count { get { return index; } }
 
         #endregion
     }
