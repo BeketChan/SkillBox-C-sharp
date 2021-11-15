@@ -68,19 +68,11 @@ namespace Lesson_7
         /// <param name="lastName">Фамилия.</param>
         /// <param name="firstName">Имя.</param>
         /// <param name="middleName">Отчество.</param>
-        public void DeleteRow(string lastName, string firstName, string middleName)
+        public void DeleteRow(int delIndex)
         {
-            int i = 0;
-            bool deletCheck = false;
-            for (i = 0; i < index; i++)
-                if ((workers[i] != null) && (lastName == workers[i].LastName) && (firstName == workers[i].FirstName) && (middleName == workers[i].MiddleName))
-                {
-                    workers[i] = null;
-                    Console.WriteLine($"{lastName} {firstName} {middleName} удалён из списка.");
-                    deletCheck = true;
-                    break;
-                }
-            if (!deletCheck) Console.WriteLine($"{lastName} {firstName} {middleName} не найдет в списе.");
+            if ((workers[delIndex] != null))
+                workers[delIndex] = null;
+            
         }
 
         /// <summary>
@@ -198,7 +190,8 @@ namespace Lesson_7
         {
             if (index > 0)
             {
-                Console.WriteLine("{0,20}{1,20}{2,20}{3,10}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}",
+                Console.WriteLine("{0,5}{1,20}{2,20}{3,20}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}{10,10}",
+                                        "ID",
                                         titles[0],
                                         titles[1],
                                         titles[2],
@@ -212,7 +205,8 @@ namespace Lesson_7
                 for (int i = 0; i < index; i++)
                 {
                     if (workers[i] != null)
-                        Console.WriteLine("{0,20:d}{1,20:d}{2,20:d}{3,10}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}",
+                        Console.WriteLine("{0,5}{1,20:d}{2,20:d}{3,20:d}{4,10}{5,10}{6,10}{7,10}{8,10}{9,10}{10,10}",
+                                            i,
                                             workers[i].AddDate,
                                             workers[i].UpdateDate,
                                             workers[i].Birthday,

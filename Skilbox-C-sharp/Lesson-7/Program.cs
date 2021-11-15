@@ -69,7 +69,7 @@ namespace Lesson_7
                 {
                     N = 0;
                 }
-                if (N >= 1 && N <= 100_000) check = true;
+                if (N >= min && N <= max) check = true;
                 else Console.WriteLine("Введите корректное число !");
             } while (!check);
             return N;
@@ -102,7 +102,8 @@ namespace Lesson_7
                         if (CheckValidInput(1, 2) == 1) workers.Save();
                         break;
                     case 4:
-                        workers.DeleteRow(GetText("Фамилия:"), GetText("Имя:"), GetText("Отчество:"));
+                        Console.WriteLine($"Укажите ID от 0 до {workers.Count}:");
+                        workers.DeleteRow(CheckValidInput(0,workers.Count));
                         break;
                     case 5:
                         if (workers.Count > 0) workers.InConsole();
