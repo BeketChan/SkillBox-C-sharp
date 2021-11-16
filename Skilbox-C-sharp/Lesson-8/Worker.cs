@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Lesson_8
 {
-    public struct Worker
+    public class Worker
     {
         #region Свойства
+
+        /// <summary>
+        /// Отдел.
+        /// </summary>
+        public string Department { get; set; }
 
         /// <summary>
         /// Имя.
@@ -40,6 +45,11 @@ namespace Lesson_8
         #region Конструкторы
 
         /// <summary>
+        /// Пустой конструктор карточки работника.
+        /// </summary>
+        public Worker() { }
+        
+        /// <summary>
         /// Карточка работника.
         /// </summary>
         /// <param name="LastName">Фамилия.</param>
@@ -47,12 +57,14 @@ namespace Lesson_8
         /// <param name="Position">Должность.</param>
         /// <param name="Salary">Зарплата.</param>
         /// <param name="Projects">Количесвто проектов.</param>
-        public Worker(string LastName,
+        public Worker(string Department,
+                      string LastName,
                       string FirstName,
                       string Position,
                       double Salary,
                       int Projects)
         {
+            this.Department = Department;
             this.LastName = LastName;
             this.FirstName = FirstName;
             this.Position = Position;
