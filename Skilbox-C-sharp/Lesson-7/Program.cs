@@ -67,7 +67,7 @@ namespace Lesson_7
                 }
                 catch (Exception)
                 {
-                    N = 0;
+                    N = -1;
                 }
                 if (N >= min && N <= max) check = true;
                 else Console.WriteLine("Введите корректное число !");
@@ -85,7 +85,7 @@ namespace Lesson_7
             {
                 Console.WriteLine("\nВыберите опцию:\n0 = закрыть программу\n1 = отсортировать список по дате дня рождения\n2 = выбрать из списка с датой рождения за период\n3 = добавить сотрудника\n4 = удалить сотрудника\n5 = Вывести в консоль\n");
 
-                mode = int.Parse(Console.ReadLine());
+                mode = CheckValidInput(0,5);
                 switch (mode)
                 {
                     case 1:
