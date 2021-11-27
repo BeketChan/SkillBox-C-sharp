@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "qlvXyvauNSNls0OOiRwuFR/43pNI2gRvhJjdp22wnfdQZSzN4VxPuZ8ucFYn2XutnitNXLa/pgkcblkLkMiHgw==",
+  "success": true,
+  "projectFilePath": "E:\\YandexDisk\\SkillBox\\C#\\Skilbox-C-sharp\\Lesson10-v2\\Lesson10-v2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\roman\\.nuget\\packages\\jetbrains.annotations\\2021.3.0\\jetbrains.annotations.2021.3.0.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\telegram.bot\\17.0.0\\telegram.bot.17.0.0.nupkg.sha512",
+    "C:\\Users\\roman\\.nuget\\packages\\telegram.bot.extensions.polling\\1.0.0\\telegram.bot.extensions.polling.1.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,12 @@
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\bin\Debug\net6.0\MyBotLib.deps.json
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\bin\Debug\net6.0\MyBotLib.dll
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\bin\Debug\net6.0\ref\MyBotLib.dll
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\bin\Debug\net6.0\MyBotLib.pdb
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.csproj.AssemblyReference.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.GeneratedMSBuildEditorConfig.editorconfig
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.AssemblyInfoInputs.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.AssemblyInfo.cs
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.csproj.CoreCompileInputs.cache
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.dll
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\ref\MyBotLib.dll
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\MyBotLib\obj\Debug\net6.0\MyBotLib.pdb

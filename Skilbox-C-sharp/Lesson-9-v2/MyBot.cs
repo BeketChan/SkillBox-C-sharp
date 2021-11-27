@@ -12,7 +12,7 @@ namespace Lesson_9_v2
         #region Конструкторы
         public MyBot()
         {
-            token = System.IO.File.ReadAllText("token.txt");
+            token = "2146720225:AAE6Ui0GcmJaseT2Mdq8iktVjccL3xaXaVk";
             chatId = 866844709;
             bot = new TelegramBotClient(token);
             cts = new CancellationTokenSource();

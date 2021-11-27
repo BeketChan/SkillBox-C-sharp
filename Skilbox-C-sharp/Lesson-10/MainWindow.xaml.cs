@@ -24,5 +24,21 @@ namespace Lesson_10
         {
             InitializeComponent();
         }
+
+        private void SendMessageBotton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadLogButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveLogButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

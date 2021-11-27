@@ -5,13 +5,18 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using MyBotLib;
+
 
 namespace Lesson_10
 {
+    
+    
     /// <summary>
     /// Логика взаимодействия для App.xaml
     /// </summary>
     public partial class App : Application
     {
+        MyBot bot = new MyBot();
     }
 }
