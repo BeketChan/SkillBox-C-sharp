@@ -1,8 +1,0 @@
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\bin\Debug\Lesson-6-from-site-1-emp-data-base.exe.config
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\bin\Debug\Lesson-6-from-site-1-emp-data-base.exe
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\bin\Debug\Lesson-6-from-site-1-emp-data-base.pdb
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\obj\Debug\Lesson-6-from-site-1-emp-data-base.csproj.AssemblyReference.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\obj\Debug\Lesson-6-from-site-1-emp-data-base.csproj.SuggestedBindingRedirects.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\obj\Debug\Lesson-6-from-site-1-emp-data-base.csproj.CoreCompileInputs.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\obj\Debug\Lesson-6-from-site-1-emp-data-base.exe
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-6-from-site-1-emp-data-base\obj\Debug\Lesson-6-from-site-1-emp-data-base.pdb

@@ -1,8 +1,0 @@
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\bin\Debug\Lesson-5-from-source-5-akkerman.exe.config
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\bin\Debug\Lesson-5-from-source-5-akkerman.exe
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\bin\Debug\Lesson-5-from-source-5-akkerman.pdb
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\obj\Debug\Lesson-5-from-source-5-akkerman.csproj.AssemblyReference.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\obj\Debug\Lesson-5-from-source-5-akkerman.csproj.SuggestedBindingRedirects.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\obj\Debug\Lesson-5-from-source-5-akkerman.csproj.CoreCompileInputs.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\obj\Debug\Lesson-5-from-source-5-akkerman.exe
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-5-from-source-5-akkerman\obj\Debug\Lesson-5-from-source-5-akkerman.pdb
