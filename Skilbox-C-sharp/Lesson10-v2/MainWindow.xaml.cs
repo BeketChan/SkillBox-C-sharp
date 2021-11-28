@@ -20,6 +20,7 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Newtonsoft.Json;
 
 
 namespace Lesson10_v2
@@ -30,14 +31,16 @@ namespace Lesson10_v2
     public partial class MainWindow : Window
     {
         Task task;
+        MyBotWPF mBot;
+        MyMessage mm;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            MyBotWPF mBot = new MyBotWPF(this);
+            mBot = new MyBotWPF(this);
 
-            task = goBot(mBot);
+            goBot();
 
             IncomingListBox.ItemsSource = mBot.messages;
 
@@ -47,29 +50,33 @@ namespace Lesson10_v2
         /// Стартовое приветствие.
         /// </summary>
         /// <returns></returns>
-        async Task goBot(MyBotWPF mBot)
+        async void goBot()
         {
             var me = await mBot.bot.GetMeAsync();
             task = mBot.SendMessage($"Привет ! Меня зовут @{me.FirstName}. Чтобы узнать список возможных комманд введите '/help'");
         }
 
-
-
         private void SendMessageBotton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (InfoTextBlock.Text != "") mBot.SendMessage(MessageTextBox.Text, mm.IdMes);
+            else mBot.SendMessage(MessageTextBox.Text);
         }
 
         private void LoadLogButton_Click(object sender, RoutedEventArgs e)
         {
-
+            mBot.messages.Clear();
+            ObservableCollection<MyMessage> log = JsonConvert.DeserializeObject<ObservableCollection<MyMessage>>(System.IO.File.ReadAllText("log.txt"));
+            foreach (var message in log) mBot.messages.Add(message);
         }
 
         private void SaveLogButton_Click(object sender, RoutedEventArgs e)
         {
-
+            System.IO.File.WriteAllText("log.txt", JsonConvert.SerializeObject(mBot.messages, Formatting.Indented));
         }
-
-        
+        private void IncomingListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mm = IncomingListBox.SelectedItem as MyMessage;
+            InfoTextBlock.Text = mm.FirstName;
+        }
     }
 }

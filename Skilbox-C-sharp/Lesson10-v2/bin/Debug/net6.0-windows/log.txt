@@ -1,0 +1,37 @@
+[
+  {
+    "IdChat": 866844709,
+    "IdMes": 287,
+    "DateTimeMes": "2021-11-28T17:52:40Z",
+    "FirstName": "Роман",
+    "TextMes": "/help"
+  },
+  {
+    "IdChat": 866844709,
+    "IdMes": 289,
+    "DateTimeMes": "2021-11-28T17:52:42Z",
+    "FirstName": "Роман",
+    "TextMes": "/list"
+  },
+  {
+    "IdChat": 866844709,
+    "IdMes": 291,
+    "DateTimeMes": "2021-11-28T17:52:44Z",
+    "FirstName": "Роман",
+    "TextMes": "dddd"
+  },
+  {
+    "IdChat": 866844709,
+    "IdMes": 293,
+    "DateTimeMes": "2021-11-28T17:52:49Z",
+    "FirstName": "Роман",
+    "TextMes": "pict.jpg"
+  },
+  {
+    "IdChat": 866844709,
+    "IdMes": 301,
+    "DateTimeMes": "2021-11-28T18:05:36Z",
+    "FirstName": "Роман",
+    "TextMes": "aaaaaaaaa"
+  }
+]

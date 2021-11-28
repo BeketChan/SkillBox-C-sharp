@@ -10,6 +10,7 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.InputFiles;
+using Telegram.Bot.Types.ReplyMarkups;
 using System.Threading;
 using System.IO;
 using MyBotLib;
@@ -78,7 +79,7 @@ namespace Lesson10_v2
         }
 
         /// <summary>
-        /// Отправка чообщений ы чат по умолчанию.
+        /// Отправка сообщений ы чат по умолчанию.
         /// </summary>
         /// <param name="mes">Сообщение.</param>
         /// <returns></returns>
@@ -87,6 +88,36 @@ namespace Lesson10_v2
             await bot.SendTextMessageAsync(
                 chatId: chatId,
                 text: mes,
+                cancellationToken: cts.Token);
+        }
+
+        /// <summary>
+        /// Отправка сообщения как ответ.
+        /// </summary>
+        /// <param name="mes">Сообщение.</param>
+        /// <param name="update">Принятое сообщение.</param>
+        /// <returns></returns>
+        public async Task SendMessage(string mes, Update update)
+        {
+            await bot.SendTextMessageAsync(
+                chatId: chatId,
+                text: mes,
+                replyToMessageId: update.Message.MessageId,
+                cancellationToken: cts.Token);
+        }
+
+        /// <summary>
+        /// Отправка сообщения как ответ.
+        /// </summary>
+        /// <param name="mes">Сообщение.</param>
+        /// <param name="MessageId">ID входящего сообщения.</param>
+        /// <returns></returns>
+        public async Task SendMessage(string mes, int MessageId)
+        {
+            await bot.SendTextMessageAsync(
+                chatId: chatId,
+                text: mes,
+                replyToMessageId: MessageId,
                 cancellationToken: cts.Token);
         }
 
@@ -105,10 +136,11 @@ namespace Lesson10_v2
             long chatId = update.Message.Chat.Id;
             int mesId = update.Message.MessageId;
             DateTime dateMes = update.Message.Date;
-            string fName = update.Message.From.FirstName != null ? update.Message.From.FirstName : "";
+            string fName = update.Message.From.FirstName;
             string mesText = update.Message.Text != null ? update.Message.Text : "";
 
             MyMessage mm = new MyMessage(chatId, mesId, dateMes, fName, mesText);
+            Task task;
 
             w.Dispatcher.Invoke(() =>
             {
@@ -125,7 +157,10 @@ namespace Lesson10_v2
                     default:
                         try
                         {
-                            //if (mesText != null) await SendFile(mesText);
+                            if (mesText != null && System.IO.File.Exists(mesText))
+                                task = SendFile(mesText);
+                            else
+                                task = SendMessage($"Файл с именем '{mesText}' не найден", update);
                         }
                         catch { }
                         break;
@@ -133,7 +168,6 @@ namespace Lesson10_v2
 
             });
 
-            
 
             //Message sentMessage = await botClient.SendTextMessageAsync(
             //    chatId: chatId,
@@ -186,6 +220,8 @@ namespace Lesson10_v2
             MyMessage mm = new MyMessage(chatId, 0, DateTime.Now, "", text1);
             Task t1 = SendMessage(mm);
         }
+
+        
 
 
 

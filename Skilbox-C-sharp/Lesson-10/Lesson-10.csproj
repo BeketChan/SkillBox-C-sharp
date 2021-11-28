@@ -144,11 +144,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyBotLib\MyBotLib.csproj">
-      <Project>{65b7aa8c-201d-48dd-8245-c5973f3f11ec}</Project>
-      <Name>MyBotLib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

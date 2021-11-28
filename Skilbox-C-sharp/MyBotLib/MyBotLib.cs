@@ -245,16 +245,7 @@ namespace MyBotLib
             this.DateTimeMes = DateTimeMes;
             this.FirstName = FirstName;
             this.TextMes = TextMes;
-        }
-
-        /// <summary>
-        /// Этот конструктор добавила студия. Зачем ?
-        /// </summary>
-        /// <param name="v"></param>
-        //public static implicit operator MyMessage(Message v)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        }        
 
         #endregion
 
