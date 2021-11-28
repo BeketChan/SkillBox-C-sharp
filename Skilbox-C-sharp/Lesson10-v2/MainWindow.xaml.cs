@@ -29,20 +29,21 @@ namespace Lesson10_v2
     /// </summary>
     public partial class MainWindow : Window
     {
-        MyBot mBot = new MyBot();
         Task task;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            task = goBot();
+            MyBotWPF mBot = new MyBotWPF(this);
 
-            mBot.bot.StartReceiving(
-                mBot.HandleUpdateAsync,
-                mBot.HandleErrorAsync,
-                mBot.receiverOptions,
-                cancellationToken: mBot.cts.Token);
+            task = goBot(mBot);
+
+            //mBot.bot.StartReceiving(
+            //    mBot.HandleUpdateAsync,
+            //    mBot.HandleErrorAsync,
+            //    mBot.receiverOptions,
+            //    cancellationToken: mBot.cts.Token);
 
 
             IncomingListBox.ItemsSource = mBot.messages;
@@ -53,7 +54,7 @@ namespace Lesson10_v2
         /// Стартовое приветствие.
         /// </summary>
         /// <returns></returns>
-        async Task goBot()
+        async Task goBot(MyBotWPF mBot)
         {
             var me = await mBot.bot.GetMeAsync();
             task = mBot.SendMessage($"Привет ! Меня зовут @{me.FirstName}. Чтобы узнать список возможных комманд введите '/help'");
