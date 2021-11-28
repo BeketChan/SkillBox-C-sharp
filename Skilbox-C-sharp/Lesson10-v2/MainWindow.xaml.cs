@@ -39,13 +39,6 @@ namespace Lesson10_v2
 
             task = goBot(mBot);
 
-            //mBot.bot.StartReceiving(
-            //    mBot.HandleUpdateAsync,
-            //    mBot.HandleErrorAsync,
-            //    mBot.receiverOptions,
-            //    cancellationToken: mBot.cts.Token);
-
-
             IncomingListBox.ItemsSource = mBot.messages;
 
         }
