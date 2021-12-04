@@ -30,7 +30,6 @@ namespace Lesson10_v2
     /// </summary>
     public partial class MainWindow : Window
     {
-        Task task;
         MyBotWPF mBot;
         MyMessage mm;
 
@@ -40,7 +39,7 @@ namespace Lesson10_v2
 
             mBot = new MyBotWPF(this);
 
-            goBot();
+            GoBot();
 
             IncomingListBox.ItemsSource = mBot.messages;
 
@@ -50,16 +49,16 @@ namespace Lesson10_v2
         /// Стартовое приветствие.
         /// </summary>
         /// <returns></returns>
-        async void goBot()
+        async void GoBot()
         {
             var me = await mBot.bot.GetMeAsync();
-            task = mBot.SendMessage($"Привет ! Меня зовут @{me.FirstName}. Чтобы узнать список возможных комманд введите '/help'");
+            await mBot.SendMessage($"Привет ! Меня зовут @{me.FirstName}. Чтобы узнать список возможных комманд введите '/help'");
         }
 
-        private void SendMessageBotton_Click(object sender, RoutedEventArgs e)
+        private async void SendMessageBotton_Click(object sender, RoutedEventArgs e)
         {
-            if (InfoTextBlock.Text != "") mBot.SendMessage(MessageTextBox.Text, mm.IdMes);
-            else mBot.SendMessage(MessageTextBox.Text);
+            if (InfoTextBlock.Text != "") await mBot.SendMessage(MessageTextBox.Text, mm.IdMes);
+            else await mBot.SendMessage(MessageTextBox.Text);
         }
 
         private void LoadLogButton_Click(object sender, RoutedEventArgs e)
@@ -75,8 +74,17 @@ namespace Lesson10_v2
         }
         private void IncomingListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            mm = IncomingListBox.SelectedItem as MyMessage;
-            InfoTextBlock.Text = mm.FirstName;
+            try
+            {
+                mm = IncomingListBox.SelectedItem as MyMessage;
+            }
+            catch
+            {
+                mm = new MyMessage();
+            }
+            
+            if (mm.FirstName != null) InfoTextBlock.Text = mm.FirstName;
+            else InfoTextBlock.Text = "";
         }
     }
 }
