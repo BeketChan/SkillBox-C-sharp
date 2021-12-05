@@ -29,7 +29,7 @@ namespace Lesson_11
         {
             InitializeComponent();
 
-            //DepartmentsList.Clear();
+            DepartmentsList.Clear();
             Company = new Company();
             if (Company.Departments != null)
             {
@@ -37,7 +37,7 @@ namespace Lesson_11
                 DepartmentsList.Add(SelectDepartment);
             }
 
-            CompanyTree.ItemsSource = Company.Departments;
+            CompanyTree.ItemsSource = Company.Departments; // пробовал убрать - не работает
             ComboBoxDepartmentsList.ItemsSource = DepartmentsList;
             ComboBoxSalaryList.ItemsSource = Company.Position;
         }
