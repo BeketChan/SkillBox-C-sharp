@@ -14,23 +14,19 @@ namespace Lesson_11
         /// <summary>
         /// Название подразделения.
         /// </summary>
-        //protected string name;
-        internal string name;
+        string? name;
 
         /// <summary>
         /// Головное подразделение.
         /// </summary>
-        internal Department? parent;
+        Department? parent;
 
         /// <summary>
         /// Дочерние подразделения.
         /// </summary>
         ObservableCollection<Department>? departments;
 
-        /// <summary>
-        /// Руководитель. Может быть только 1 на отдел.
-        /// </summary>
-        Worker? miniBoss;
+        ObservableCollection<Executor>? executors;
 
         #endregion
 
@@ -39,7 +35,11 @@ namespace Lesson_11
         /// <summary>
         /// Узнать название подразделения.
         /// </summary>
-        public string Name => name;
+        public string? Name
+        {
+            get => name;
+            set { name = value; }
+        }
 
         /// <summary>
         /// Узнать/назначить головное подразделение.
@@ -59,39 +59,23 @@ namespace Lesson_11
         public ObservableCollection<Department>? Departments
         {
             get => departments;
-            set
-            {
-                if (value != null) departments = value;
-            }
+            set { if (value != null) departments = value; }
         }
 
         /// <summary>
-        /// Узнать/назначить руководителя подразделения.
+        /// Работа со списком работников подразделения.
         /// </summary>
-        public Worker? MiniBoss
+        public ObservableCollection<Executor>? Executors
         {
-            get => miniBoss;
-            set
-            {
-                if (value != null) miniBoss = value;
-            }
-        }
-
-        /// <summary>
-        /// Имя руководителя.
-        /// </summary>
-        public string? MiniBossName
-        {
-            get
-            {
-                if (miniBoss != null) return miniBoss.Name;
-                else return null;
-            }
+            get => executors;
+            set { if (value != null) executors = value; }
         }
 
         #endregion
 
         #region Конструкторы.
+
+        public Department() { }
 
         /// <summary>
         /// Конструктор корневого подразделения.
@@ -101,6 +85,7 @@ namespace Lesson_11
         {
             this.name = name;
             departments = new ObservableCollection<Department>();
+            executors = new ObservableCollection<Executor>();
         }
 
         /// <summary>
@@ -108,12 +93,17 @@ namespace Lesson_11
         /// </summary>
         /// <param name="name">Название.</param>
         /// <param name="parent">Головное подразделение.</param>
-        public Department(string name, Department parent)
+        public Department(string name, Department parent) : this(name)
         {
-            this.name = name;
             this.parent = parent;
-            departments = new ObservableCollection<Department>();
         }
+
+        #endregion
+
+        #region Методы
+
+
+
 
         #endregion
     }

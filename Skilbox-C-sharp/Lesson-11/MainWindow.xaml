@@ -15,9 +15,13 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <TreeView x:Name="CompanyTree"
-            Grid.Column="0"
+            Grid.Column="0" Grid.Row="0"
             Margin="5" Padding="5"
             SelectedItemChanged="CompanyTree_SelectedItemChanged">
             <TreeView.ItemTemplate>
@@ -33,84 +37,170 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <Canvas Grid.Column="1"
-                Margin="5,5,5,5">
-            
-            <TextBlock x:Name="TextName"
-                       Margin="5" Padding="5"
-                       TextWrapping="Wrap"
-                       Text="Имя / Наименование:"/>
-            
-            <TextBox x:Name="TextNameValue"
-                     Margin="250,5,5,5" Padding="5"
-                     Width="250"
-                     TextWrapping="Wrap"
-                     Text=""/>
+        <TextBlock x:Name="TextName"
+                   Grid.Column="1" Grid.Row="0"
+                   Margin="5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   Text="Наименование подразделения:"/>
 
-            <TextBlock x:Name="TextParent"
-                       Margin="5,35,5,5" Padding="5"
-                       TextWrapping="Wrap"
-                       Text="Головное подразделение / Место работы:"/>
-            
-            <ComboBox x:Name="ComboBoxDepartmentsList"
-                      Margin="250,38,5,5"
-                      Width="250"
-                      SelectedIndex="0" SelectionChanged="ComboBoxDepartmentsList_SelectionChanged">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
+        <TextBox x:Name="DepartmentNameValue"
+                 Grid.Column="1" Grid.Row="0"
+                 Margin="5" Padding="5"
+                 VerticalAlignment="Top" HorizontalAlignment="Right"
+                 Width="250"
+                 TextWrapping="Wrap"
+                 Text=""/>
+
+        <TextBlock x:Name="TextParent"
+                   Grid.Column="1" Grid.Row="0"
+                   Margin="5,35,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   Text="Выбранное подразделение:"/>
+
+        <ComboBox x:Name="ComboBoxDepartmentsList"
+                  Grid.Column="1" Grid.Row="0"
+                  Margin="5,35,5,5" Padding="5"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Width="250"
+                  SelectedIndex="0"
+                  SelectionChanged="ComboBoxDepartmentsList_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="0"
+                   Margin="5,65,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   FontWeight="Bold"
+                   Text="Опции подразделений:"/>
+
+        <Button x:Name="BottonDelete"
+                Grid.Column="1" Grid.Row="0"
+                Margin="5,65,5,5" Padding="5"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="120"
+                Content="Удалить" Click="BottonDelete_Click"/>
+
+        <Button x:Name="BottonAdd"
+                Grid.Column="1" Grid.Row="0"
+                Margin="5,65,135,5" Padding="5"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="120"
+                Content="Добавить"
+                Click="BottonAdd_Click"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="0"
+                   Margin="5" Padding="5"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                   FontWeight="Bold"
+                   Text="Опции Компании:"/>
+
+        <Button x:Name="BottonLoad"
+                Grid.Column="1" Grid.Row="0"
+                Margin="5,5,135,5" Padding="5"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Width="120"
+                Content="Загрузить"
+                Click="BottonLoad_Click"/>
+
+        <Button x:Name="BottonSave"
+                Grid.Column="1" Grid.Row="0"
+                Margin="5" Padding="5"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Width="120"
+                Content="Сохранить" Click="BottonSave_Click"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="1"
+                   Margin="5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   Text="Имя исполнителя:"/>
+
+        <TextBox x:Name="ExecutorNameValue"
+                 Grid.Column="1" Grid.Row="1"
+                 Margin="5" Padding="5"
+                 VerticalAlignment="Top" HorizontalAlignment="Right"
+                 Width="250"
+                 TextWrapping="Wrap"
+                 Text=""/>
+
+        <TextBlock x:Name="TextNameWorker"
+                   Grid.Column="1" Grid.Row="1"
+                   Margin="5,35,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   Text="Должность:"/>
+
+        <ComboBox x:Name="ComboBoxSalaryList"
+                  Grid.Column="1" Grid.Row="1"
+                  Margin="5,35,5,5" Padding="5"
+                  VerticalAlignment="Top" HorizontalAlignment="Right"
+                  Width="250"
+                  SelectedIndex="0">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Key}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="1"
+                   Margin="5,65,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   FontWeight="Bold"
+                   Text="Опции исполнителей:"/>
+
+        <Button x:Name="BottonAddExecutor"
+                Grid.Column="1" Grid.Row="1"
+                Margin="0,65,135,0" Padding="5"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="120"
+                Content="Добавить"
+                Click="BottonAddExecutor_Click"/>
+
+        <Button x:Name="BottonDeleteExecutor"
+                Grid.Column="1" Grid.Row="1"
+                Margin="5,65,5,5" Padding="5"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="120"
+                Content="Удалить"
+                Click="BottonDeleteExecutor_Click"/>
+
+        <TextBlock x:Name="test"
+                   Grid.Column="1" Grid.Row="1"
+                   Margin="5,95,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   TextWrapping="Wrap"
+                   Text="Зарплата выбранного исполнителя:"/>
+
+        <TextBlock x:Name="SlarySelectedExecutor"
+                   Grid.Column="1" Grid.Row="1"
+                   Margin="5,95,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Right"
+                   TextWrapping="Wrap"
+                   Text="0"/>
+
+        <ListBox x:Name="ExecutorsList"
+                 Grid.Row="1" Grid.Column="0"
+                 Margin="5" Padding="5"
+                 ItemsSource="{Binding Path=Executors}" SelectionChanged="ExecutorsList_SelectionChanged"
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            
-            <TextBlock Margin="5,100,5,5"
-                       FontSize="18"
-                       Text="Опции подразделений:"/>
-            
-            <Button x:Name="BottonDelete"
-                    Margin="5,150,5,5" Padding="5"
-                    Width="120"
-                    FontSize="16"
-                    Content="Удалить" Click="BottonDelete_Click"/>
+                        <TextBlock Text=", "/>
+                        <TextBlock Text="{Binding Position}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-            <Button x:Name="BottonAdd"
-                    Margin="145,150,5,5" Padding="5"
-                    Width="120"
-                    FontSize="16"
-                    Content="Добавить"
-                    Click="BottonAdd_Click"/>
-
-            <TextBlock Margin="5,200,5,5"
-                       FontSize="18"
-                       Text="Опции работников:"/>
-
-            <TextBlock x:Name="TextNameWorker"
-                       Margin="5,240,5,5" Padding="5"
-                       TextWrapping="Wrap"
-                       Text="Должность:"/>
-
-            <ComboBox x:Name="ComboBoxSalaryList"
-                      Margin="250,240,5,5"
-                      Width="250"
-                      SelectedIndex="0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Key}"/>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-            <Button x:Name="BottonAddWorker"
-                    Margin="145,280,5,5" Padding="5"
-                    Width="120"
-                    FontSize="16"
-                    Content="Добавить"
-                    Click="BottonAddWorker_Click"/>
-            
-            <TextBlock x:Name="test" Canvas.Left="360" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="358"/>
-
-        </Canvas>
-        
 
     </Grid>
 </Window>

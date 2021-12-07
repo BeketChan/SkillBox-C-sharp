@@ -4,45 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lesson_11
+namespace Lesson_11.Classes
 {
-    public class Worker : Department
+    internal class Worker : Executor
     {
         #region Поля
 
-        /// <summary>
-        /// Должность работника.
-        /// </summary>
-        string position;
+        int salary;
 
         #endregion
 
         #region Свойства
 
         /// <summary>
-        /// Узнать должность работника.
+        /// Ставка ЗП работника
         /// </summary>
-        public string Position
+        public int Salary
         {
-            get { return position; }
-            set { position = value; }
+            get => salary;
+            set => salary = value;
         }
 
         #endregion
 
-        #region Конструкторы
+        #region Конструктор
 
         /// <summary>
-        /// Единственный конструктор, так как все поля требуют заполнения.
+        /// Руководитель подразделения.
         /// </summary>
-        /// <param name="name">Имя работника.</param>
-        /// <param name="parent">Подразделение работника.</param>
-        /// <param name="position">Должность работника.</param>
-        public Worker(string name, Department parent, string position) : base(parent.name)
+        /// <param name="name">Имя.</param>
+        /// <param name="parent">Подразделение.</param>
+        public Worker(string name, Department parent) : base(name, "Работник", parent)
         {
-            this.name = name;
-            this.parent = parent;
-            this.position = position;
+            salary = 8;
         }
 
         #endregion

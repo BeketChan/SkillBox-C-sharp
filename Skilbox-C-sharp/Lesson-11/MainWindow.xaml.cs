@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lesson_11.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Lesson_11
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly Company Company;
+        readonly Company MyCompany;
         Department SelectDepartment = new("empty");
         readonly ObservableCollection<Department> DepartmentsList = new();
 
@@ -30,27 +31,32 @@ namespace Lesson_11
             InitializeComponent();
 
             DepartmentsList.Clear();
-            Company = new Company();
-            if (Company.Departments != null)
+            MyCompany = new Company();
+            if (MyCompany.Departments != null)
             {
-                SelectDepartment = Company.Departments[0];
+                SelectDepartment = MyCompany.Departments[0];
                 DepartmentsList.Add(SelectDepartment);
             }
 
-            CompanyTree.ItemsSource = Company.Departments; // пробовал убрать - не работает
+            CompanyTree.ItemsSource = MyCompany.Departments; // пробовал убрать - не работает
             ComboBoxDepartmentsList.ItemsSource = DepartmentsList;
-            ComboBoxSalaryList.ItemsSource = Company.Position;
+            ComboBoxSalaryList.ItemsSource = MyCompany.Position;
         }
 
         private void CompanyTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectDepartment = (Department)CompanyTree.SelectedItem;
-            TextNameValue.Text = SelectDepartment.Name;
-            ComboBoxDepartmentsList.SelectedItem = SelectDepartment.Parent;
+            DepartmentNameValue.Text = SelectDepartment.Name;
+            ComboBoxDepartmentsList.SelectedItem = SelectDepartment;
+
+            ExecutorsList.ItemsSource = SelectDepartment.Executors;
         }
+
         private void ComboBoxDepartmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectDepartment = (Department)ComboBoxDepartmentsList.SelectedItem;
+
+            if (SelectDepartment.Executors != null) ExecutorsList.ItemsSource = SelectDepartment.Executors;
         }
 
         private void BottonDelete_Click(object sender, RoutedEventArgs e)
@@ -60,57 +66,66 @@ namespace Lesson_11
                 SelectDepartment.Parent.Departments.Remove(SelectDepartment);
             }
             DepartmentsList.Remove(SelectDepartment);
-            //DepartmentsListRemuve(SelectDepartment);
-        }
-
-        void DepartmentsListRemuve(Department dep)
-        {
-            if (dep != null && dep.Departments == null)
-                DepartmentsList.Remove(dep);
-
-            if (dep != null && dep.Departments != null)
-                for (int n = 0; n < dep.Departments.Count; n++)
-                {
-                    DepartmentsListRemuve(dep.Departments[n]);
-                }
         }
 
         private void BottonAdd_Click(object sender, RoutedEventArgs e)
         {
             if (SelectDepartment != null && SelectDepartment.Departments != null && ComboBoxDepartmentsList.SelectedItem != null)
             {
-                Department department = new(TextNameValue.Text, SelectDepartment);
+                Department department = new(DepartmentNameValue.Text, SelectDepartment);
                 SelectDepartment.Departments.Add(department);
                 DepartmentsList.Add(department);
             }
         }
 
-        private void BottonAddWorker_Click(object sender, RoutedEventArgs e)
+        private void BottonAddExecutor_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectDepartment != null && SelectDepartment.Departments != null && ComboBoxDepartmentsList.SelectedItem != null)
+            switch (((KeyValuePair<string, int>)ComboBoxSalaryList.SelectedValue).Key)
             {
-                KeyValuePair<string, int> val = (KeyValuePair<string, int>)ComboBoxSalaryList.SelectedItem;
-
-                Worker worker = new(TextNameValue.Text, (Department)ComboBoxDepartmentsList.SelectedItem, val.Key);
-
-                if (SelectDepartment.MiniBoss == null)
-                    if (val.Key == "Директор" || val.Key == "Руководитель отдела")
-                    {
-                        SelectDepartment.MiniBoss = worker;
-                        test.Text = $"1 {SelectDepartment.Name}";
-                    }   
-                else
-                    if (val.Key == "Директор" || val.Key == "Руководитель отдела")
-                    {
-                        worker.Position = "Работник";
-                        test.Text = $"2 {SelectDepartment.Name}";
-                    }
-                        
-
-                SelectDepartment.Departments.Add(worker);
-
-                //test.Text = SelectDepartment.MiniBossName;
+                case "Руководитель":
+                    Company.AddExecutor(SelectDepartment, new Director(ExecutorNameValue.Text, SelectDepartment));
+                    break;
+                case "Интерн":
+                    Company.AddExecutor(SelectDepartment, new Intern(ExecutorNameValue.Text, SelectDepartment));
+                    break;
+                default:
+                    Company.AddExecutor(SelectDepartment, new Worker(ExecutorNameValue.Text, SelectDepartment));
+                    break;
             }
+        }
+
+        private void ExecutorsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if( ((Executor)ExecutorsList.SelectedItem) != null)
+                switch (((Executor)ExecutorsList.SelectedItem).Position)
+                {
+                    case ("Руководитель"):
+                        // Я не делал проверку на минималку ЗП руководителя. Просто чтоб видеть работу процентовки.
+                        SlarySelectedExecutor.Text = $"15 % от {MyCompany.SalaryKalkulation(SelectDepartment)} = {MyCompany.SalaryKalkulation(SelectDepartment) * 0.15}";
+                        break;
+                    case ("Интерн"):
+                        SlarySelectedExecutor.Text = "500";
+                        break;
+                    default:
+                        SlarySelectedExecutor.Text = "8 x 160 = 1 280";
+                        break;
+                }
+        }
+
+        private void BottonDeleteExecutor_Click(object sender, RoutedEventArgs e)
+        {
+            if (ExecutorsList.SelectedItem != null && SelectDepartment.Executors != null)
+                SelectDepartment.Executors.Remove((Executor)ExecutorsList.SelectedItem);
+        }
+
+        private void BottonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            MyCompany.Departments = MyCompany.DeserializeJson();
+        }
+
+        private void BottonSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (MyCompany.Departments != null) MyCompany.SerializeJson(MyCompany.Departments);
         }
     }
 }

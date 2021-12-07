@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "ООО Рога и Копыта.",
+    "Parent": null,
+    "Departments": [
+      {
+        "Name": "111",
+        "Departments": [],
+        "Executors": [
+          {
+            "Salary": 15,
+            "Name": "sss",
+            "Position": "Руководитель"
+          }
+        ]
+      },
+      {
+        "Name": "222",
+        "Departments": [],
+        "Executors": [
+          {
+            "Salary": 15,
+            "Name": "fff",
+            "Position": "Руководитель"
+          }
+        ]
+      }
+    ],
+    "Executors": [
+      {
+        "Salary": 15,
+        "Name": "aaa",
+        "Position": "Руководитель"
+      }
+    ]
+  }
+]
