@@ -1,19 +1,8 @@
 ﻿using Lesson_11.Classes;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lesson_11
 {
@@ -22,10 +11,13 @@ namespace Lesson_11
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly Company MyCompany;
+        Company MyCompany;
         Department SelectDepartment = new("empty");
-        readonly ObservableCollection<Department> DepartmentsList = new();
+        ObservableCollection<Department> DepartmentsList = new();
 
+        /// <summary>
+        /// Основное окно.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -39,10 +31,18 @@ namespace Lesson_11
             }
 
             CompanyTree.ItemsSource = MyCompany.Departments; // пробовал убрать - не работает
-            ComboBoxDepartmentsList.ItemsSource = DepartmentsList;
+
+            if (MyCompany.Departments != null)
+                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+
             ComboBoxSalaryList.ItemsSource = MyCompany.Position;
         }
 
+        /// <summary>
+        /// Дерево подразделений.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CompanyTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectDepartment = (Department)CompanyTree.SelectedItem;
@@ -52,13 +52,23 @@ namespace Lesson_11
             ExecutorsList.ItemsSource = SelectDepartment.Executors;
         }
 
+        /// <summary>
+        /// Изменение выбранного подразделение в общем списке.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxDepartmentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectDepartment = (Department)ComboBoxDepartmentsList.SelectedItem;
 
-            if (SelectDepartment.Executors != null) ExecutorsList.ItemsSource = SelectDepartment.Executors;
+            if (SelectDepartment != null && SelectDepartment.Executors != null) ExecutorsList.ItemsSource = SelectDepartment.Executors;
         }
 
+        /// <summary>
+        /// Удаление выбранного подразделения.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonDelete_Click(object sender, RoutedEventArgs e)
         {
             if (SelectDepartment.Parent != null && SelectDepartment.Parent.Departments != null)
@@ -66,8 +76,16 @@ namespace Lesson_11
                 SelectDepartment.Parent.Departments.Remove(SelectDepartment);
             }
             DepartmentsList.Remove(SelectDepartment);
+
+            if (MyCompany.Departments != null)
+                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
         }
 
+        /// <summary>
+        /// Добавление дочернего подразделение к выбранному.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonAdd_Click(object sender, RoutedEventArgs e)
         {
             if (SelectDepartment != null && SelectDepartment.Departments != null && ComboBoxDepartmentsList.SelectedItem != null)
@@ -76,8 +94,16 @@ namespace Lesson_11
                 SelectDepartment.Departments.Add(department);
                 DepartmentsList.Add(department);
             }
+
+            if (MyCompany.Departments != null)
+                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
         }
 
+        /// <summary>
+        /// Добавление исполнителя в выбранное подразделение.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonAddExecutor_Click(object sender, RoutedEventArgs e)
         {
             switch (((KeyValuePair<string, int>)ComboBoxSalaryList.SelectedValue).Key)
@@ -94,14 +120,24 @@ namespace Lesson_11
             }
         }
 
+        /// <summary>
+        /// Расчёт ЗП на выбранного исполнителя.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExecutorsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if( ((Executor)ExecutorsList.SelectedItem) != null)
                 switch (((Executor)ExecutorsList.SelectedItem).Position)
                 {
                     case ("Руководитель"):
-                        // Я не делал проверку на минималку ЗП руководителя. Просто чтоб видеть работу процентовки.
-                        SlarySelectedExecutor.Text = $"15 % от {MyCompany.SalaryKalkulation(SelectDepartment)} = {MyCompany.SalaryKalkulation(SelectDepartment) * 0.15}";
+                        double salary = MyCompany.SalaryKalkulation(SelectDepartment);
+                        if (salary * 0.15 < 1300)
+                        {
+                            salary = 1300;
+                            SlarySelectedExecutor.Text = $"Минимальная ставка руководителя = {salary}";
+                        }
+                        else SlarySelectedExecutor.Text = $"15 % от {salary} = {salary * 0.15}";
                         break;
                     case ("Интерн"):
                         SlarySelectedExecutor.Text = "500";
@@ -112,17 +148,40 @@ namespace Lesson_11
                 }
         }
 
+        /// <summary>
+        /// Удаление выбранного исполнителя.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonDeleteExecutor_Click(object sender, RoutedEventArgs e)
         {
             if (ExecutorsList.SelectedItem != null && SelectDepartment.Executors != null)
                 SelectDepartment.Executors.Remove((Executor)ExecutorsList.SelectedItem);
         }
 
+        /// <summary>
+        /// Загрузить структуру компании.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonLoad_Click(object sender, RoutedEventArgs e)
         {
+            MyCompany.Departments.Clear();
+
             MyCompany.Departments = MyCompany.DeserializeJson();
+
+            // Да, тупой повтор кода. Но я так и не понял, как иначе привязывать источники.
+            CompanyTree.ItemsSource = MyCompany.Departments;
+            if (MyCompany.Departments != null)
+                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+            ComboBoxSalaryList.ItemsSource = MyCompany.Position;
         }
 
+        /// <summary>
+        /// Сохранить структуру компании.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BottonSave_Click(object sender, RoutedEventArgs e)
         {
             if (MyCompany.Departments != null) MyCompany.SerializeJson(MyCompany.Departments);

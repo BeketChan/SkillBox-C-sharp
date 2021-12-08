@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Runtime.Serialization;
+using System.Text.Unicode;
+using System.Text.Encodings.Web;
 
 namespace Lesson_11
 {
@@ -128,12 +131,8 @@ namespace Lesson_11
                     {
                         switch (exe.Position)
                         {
-                            case ("Интерн"):
-                                kalkulation += 500;
-                                break;
-                            default:
-                                kalkulation += (8 * 160);
-                                break;
+                            case ("Интерн"): kalkulation += 500; break;
+                            default: kalkulation += (8 * 160); break;
                         }
                     }
                 }
@@ -146,21 +145,35 @@ namespace Lesson_11
         }
 
         /// <summary>
+        /// Сбор всех дочерних подразделений в единый список, включая головное подразделение.
+        /// </summary>
+        /// <param name="dep">Головное подразделение.</param>
+        /// <param name="list">Список.</param>
+        /// <returns></returns>
+        public ObservableCollection<Department> DepartmentsList(Department dep, ObservableCollection<Department> list)
+        {
+            list.Add(dep);
+            if (dep.Departments != null)
+                foreach (Department department in dep.Departments)
+                    DepartmentsList(department, list);
+
+            return list;
+        }
+
+        /// <summary>
         /// Сериализация.
         /// </summary>
         /// <param name="dep"></param>
         public void SerializeJson(ObservableCollection<Department> dep)
         {
-            //string json = JsonConvert.SerializeObject(dep, Formatting.Indented);
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true,
+            };
 
-            string json = JsonConvert.SerializeObject(dep, Formatting.Indented,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        });
-
+            string json = JsonSerializer.Serialize<object>(dep, options);
             File.WriteAllText(path, json);
-
         }
 
         /// <summary>
@@ -170,7 +183,14 @@ namespace Lesson_11
         public ObservableCollection<Department> DeserializeJson()
         {
             string json = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<ObservableCollection<Department>>(json);
+
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                WriteIndented = true
+            };
+
+            return JsonSerializer.Deserialize<ObservableCollection<Department>>(json, options);
         }
 
         #endregion

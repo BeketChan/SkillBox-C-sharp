@@ -19,5 +19,3 @@ E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\obj\Debug\net6.0-windows\Les
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\obj\Debug\net6.0-windows\ref\Lesson-11.dll
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\obj\Debug\net6.0-windows\Lesson-11.pdb
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\obj\Debug\net6.0-windows\Lesson-11.genruntimeconfig.cache
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-11\obj\Debug\net6.0-windows\Lesson-11.csproj.CopyComplete

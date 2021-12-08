@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace Lesson_11
 {
@@ -26,6 +22,9 @@ namespace Lesson_11
         /// </summary>
         ObservableCollection<Department>? departments;
 
+        /// <summary>
+        /// Список работников.
+        /// </summary>
         ObservableCollection<Executor>? executors;
 
         #endregion
@@ -44,6 +43,7 @@ namespace Lesson_11
         /// <summary>
         /// Узнать/назначить головное подразделение.
         /// </summary>
+        [JsonIgnore]
         public Department? Parent
         {
             get => parent;

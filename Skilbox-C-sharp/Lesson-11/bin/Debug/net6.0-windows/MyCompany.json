@@ -1,36 +1,22 @@
 [
   {
     "Name": "ООО Рога и Копыта.",
-    "Parent": null,
-    "Departments": [
-      {
-        "Name": "111",
-        "Departments": [],
-        "Executors": [
-          {
-            "Salary": 15,
-            "Name": "sss",
-            "Position": "Руководитель"
-          }
-        ]
-      },
-      {
-        "Name": "222",
-        "Departments": [],
-        "Executors": [
-          {
-            "Salary": 15,
-            "Name": "fff",
-            "Position": "Руководитель"
-          }
-        ]
-      }
-    ],
+    "Departments": [],
     "Executors": [
       {
-        "Salary": 15,
-        "Name": "aaa",
-        "Position": "Руководитель"
+        "Name": "111",
+        "Position": "Руководитель",
+        "Salary": 15
+      },
+      {
+        "Name": "111",
+        "Position": "Работник",
+        "Salary": 8
+      },
+      {
+        "Name": "111",
+        "Position": "Интерн",
+        "Salary": 500
       }
     ]
   }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lesson_11
+﻿namespace Lesson_11
 {
     public abstract class Executor
     {
@@ -12,7 +6,8 @@ namespace Lesson_11
 
         string name;
         string position;
-        Department parent;
+        //Department parent;
+        int salary;
 
         #endregion
 
@@ -39,10 +34,20 @@ namespace Lesson_11
         /// <summary>
         /// Подразделение работника
         /// </summary>
-        public Department Parent
+        //public Department Parent
+        //{
+        //    get => parent;
+        //    set => parent = value;
+        //}
+
+        /// <summary>
+        /// Ставка зарпллаты.
+        /// </summary>
+        /// <returns></returns>
+        public int Salary
         {
-            get => parent;
-            set => parent = value;
+            get => salary;
+            set => salary = value;
         }
 
         #endregion
@@ -55,11 +60,12 @@ namespace Lesson_11
         /// <param name="name">Имя.</param>
         /// <param name="position">Должность.</param>
         /// <param name="parent">Подразделение.</param>
-        public Executor(string name, string position, Department parent)
+        public Executor(string name, string position, int salary)
         {
             this.name = name;
             this.position = position;
-            this.parent = parent;
+            //this.parent = parent;
+            this.salary = salary;
         }
 
         #endregion
