@@ -1,20 +1,121 @@
 [
   {
     "Name": "ООО Рога и Копыта.",
-    "Departments": [],
+    "Parent": null,
+    "Departments": [
+      {
+        "Name": "Галера 1",
+        "Departments": [],
+        "Executors": [
+          {
+            "$type": "Lesson_11.Classes.Director, Lesson-11",
+            "Name": "МиниБосс",
+            "Position": "Руководитель",
+            "Salary": 15
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребибля",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребубля",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Intern, Lesson-11",
+            "Name": "Штык",
+            "Position": "Интерн",
+            "Salary": 500
+          },
+          {
+            "$type": "Lesson_11.Classes.Intern, Lesson-11",
+            "Name": "Бомба",
+            "Position": "Интерн",
+            "Salary": 500
+          },
+          {
+            "$type": "Lesson_11.Classes.Intern, Lesson-11",
+            "Name": "Пуля",
+            "Position": "Интерн",
+            "Salary": 500
+          }
+        ]
+      },
+      {
+        "Name": "Галера 2",
+        "Departments": [],
+        "Executors": [
+          {
+            "$type": "Lesson_11.Classes.Director, Lesson-11",
+            "Name": "Надсмоторщик",
+            "Position": "Руководитель",
+            "Salary": 15
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребец 1",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребец 2",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребец 3",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребец 4",
+            "Position": "Работник",
+            "Salary": 8
+          },
+          {
+            "$type": "Lesson_11.Classes.Worker, Lesson-11",
+            "Name": "Гребец 5",
+            "Position": "Работник",
+            "Salary": 8
+          }
+        ]
+      }
+    ],
     "Executors": [
       {
-        "Name": "111",
+        "$type": "Lesson_11.Classes.Director, Lesson-11",
+        "Name": "БигБосс",
         "Position": "Руководитель",
         "Salary": 15
       },
       {
-        "Name": "111",
+        "$type": "Lesson_11.Classes.Worker, Lesson-11",
+        "Name": "Прихвостень",
         "Position": "Работник",
         "Salary": 8
       },
       {
-        "Name": "111",
+        "$type": "Lesson_11.Classes.Worker, Lesson-11",
+        "Name": "Секретутка",
+        "Position": "Работник",
+        "Salary": 8
+      },
+      {
+        "$type": "Lesson_11.Classes.Intern, Lesson-11",
+        "Name": "ПринесиПодай",
+        "Position": "Интерн",
+        "Salary": 500
+      },
+      {
+        "$type": "Lesson_11.Classes.Intern, Lesson-11",
+        "Name": "УйдиНеМешай",
         "Position": "Интерн",
         "Salary": 500
       }

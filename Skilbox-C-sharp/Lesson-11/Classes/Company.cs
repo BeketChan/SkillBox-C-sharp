@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using System.Runtime.Serialization;
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
+using Newtonsoft.Json;
 
 namespace Lesson_11
 {
@@ -166,14 +167,24 @@ namespace Lesson_11
         /// <param name="dep"></param>
         public void SerializeJson(ObservableCollection<Department> dep)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions
+            //JsonSerializerOptions options = new JsonSerializerOptions
+            //{
+            //    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+            //    WriteIndented = true,
+            //};
+
+            //string json = JsonSerializer.Serialize<object>(dep, options);
+            //File.WriteAllText(path, json);
+
+            var jset = new JsonSerializerSettings()
             {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-                WriteIndented = true,
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
 
-            string json = JsonSerializer.Serialize<object>(dep, options);
-            File.WriteAllText(path, json);
+            string save = JsonConvert.SerializeObject(dep, jset);
+            File.WriteAllText(path, save);
         }
 
         /// <summary>
@@ -182,15 +193,20 @@ namespace Lesson_11
         /// <returns></returns>
         public ObservableCollection<Department> DeserializeJson()
         {
-            string json = File.ReadAllText(path);
+            //string json = File.ReadAllText(path);
 
-            JsonSerializerOptions options = new JsonSerializerOptions
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-                WriteIndented = true
-            };
+            //JsonSerializerOptions options = new JsonSerializerOptions
+            //{
+            //    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+            //    WriteIndented = true
+            //};
 
-            return JsonSerializer.Deserialize<ObservableCollection<Department>>(json, options);
+            //return JsonSerializer.Deserialize<ObservableCollection<Department>>(json, options);
+
+            
+            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented };
+            string load = File.ReadAllText(path);
+            return JsonConvert.DeserializeObject<ObservableCollection<Department>>(load, jset);
         }
 
         #endregion
