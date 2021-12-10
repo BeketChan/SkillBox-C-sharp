@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:Lesson_11"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450" Width="800"
-        MinHeight="450" MinWidth="800"
+        Height="600" Width="1200"
+        MinHeight="600" MinWidth="1200"
         HorizontalAlignment="Center" VerticalAlignment="Center"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -200,6 +201,53 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        
+        <ListView x:Name="AllExecutorsList"
+                  Grid.Column="2" Grid.RowSpan="2"
+                  Margin="5,200,5,5" Padding="5"
+                  d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Имя"/>
+                    <GridViewColumn Header="Подразделение"/>
+                    <GridViewColumn Header="Зарплата"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock Grid.Column="2" Grid.Row="0"
+                   Margin="5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   FontWeight="Bold"
+                   Text="Общий список работников. Редактироваие выделенного:"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="0"
+                   Margin="5,35,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="Имя:"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="0"
+                   Margin="5,65,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="Подразделение:"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="0"
+                   Margin="5,95,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="Должность:"/>
+
+        <TextBlock Grid.Column="2" Grid.Row="0"
+                   Margin="5,125,5,5" Padding="5"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   Text="Сортировка списка:"/>
+
+        <TextBox x:Name="SelectExecutirName"
+                 Grid.Column="2" Grid.Row="0"
+                 Margin="5,35,5,5" Padding="5"
+                 VerticalAlignment="Top" HorizontalAlignment="Right"
+                 Width="250"
+                 TextWrapping="Wrap"
+                 Text=""/>
 
 
     </Grid>

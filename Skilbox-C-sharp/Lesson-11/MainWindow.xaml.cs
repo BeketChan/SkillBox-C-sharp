@@ -46,10 +46,13 @@ namespace Lesson_11
         private void CompanyTree_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             SelectDepartment = (Department)CompanyTree.SelectedItem;
-            DepartmentNameValue.Text = SelectDepartment.Name;
-            ComboBoxDepartmentsList.SelectedItem = SelectDepartment;
 
-            ExecutorsList.ItemsSource = SelectDepartment.Executors;
+            if (SelectDepartment != null && SelectDepartment.Executors != null)
+            {
+                DepartmentNameValue.Text = SelectDepartment.Name;
+                ComboBoxDepartmentsList.SelectedItem = SelectDepartment;
+                ExecutorsList.ItemsSource = SelectDepartment.Executors;
+            }
         }
 
         /// <summary>
@@ -61,7 +64,10 @@ namespace Lesson_11
         {
             SelectDepartment = (Department)ComboBoxDepartmentsList.SelectedItem;
 
-            if (SelectDepartment != null && SelectDepartment.Executors != null) ExecutorsList.ItemsSource = SelectDepartment.Executors;
+            if (SelectDepartment != null && SelectDepartment.Executors != null)
+            {
+                ExecutorsList.ItemsSource = SelectDepartment.Executors;
+            }
         }
 
         /// <summary>
@@ -166,15 +172,17 @@ namespace Lesson_11
         /// <param name="e"></param>
         private void BottonLoad_Click(object sender, RoutedEventArgs e)
         {
-            MyCompany.Departments.Clear();
+            //ExecutorsList.Items.Clear();
+            //CompanyTree.Items.Clear();
 
+            if (MyCompany.Departments != null) MyCompany.Departments.Clear();
             MyCompany.Departments = MyCompany.DeserializeJson();
 
             // Да, тупой повтор кода. Но я так и не понял, как иначе привязывать источники.
             CompanyTree.ItemsSource = MyCompany.Departments;
+
             if (MyCompany.Departments != null)
                 ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
-            ComboBoxSalaryList.ItemsSource = MyCompany.Position;
         }
 
         /// <summary>
