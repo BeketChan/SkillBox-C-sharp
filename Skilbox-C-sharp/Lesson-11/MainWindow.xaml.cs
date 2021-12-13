@@ -30,10 +30,14 @@ namespace Lesson_11
                 DepartmentsList.Add(SelectDepartment);
             }
 
-            CompanyTree.ItemsSource = MyCompany.Departments; // пробовал убрать - не работает
+            CompanyTree.ItemsSource = MyCompany.Departments;
 
             if (MyCompany.Departments != null)
+            {
                 ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+
+                AllExecutorsList.ItemsSource = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
+            }   
 
             ComboBoxSalaryList.ItemsSource = MyCompany.Position;
         }
@@ -50,7 +54,9 @@ namespace Lesson_11
             if (SelectDepartment != null && SelectDepartment.Executors != null)
             {
                 DepartmentNameValue.Text = SelectDepartment.Name;
+
                 ComboBoxDepartmentsList.SelectedItem = SelectDepartment;
+
                 ExecutorsList.ItemsSource = SelectDepartment.Executors;
             }
         }
@@ -94,15 +100,18 @@ namespace Lesson_11
         /// <param name="e"></param>
         private void BottonAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectDepartment != null && SelectDepartment.Departments != null && ComboBoxDepartmentsList.SelectedItem != null)
+            if (SelectDepartment != null &&
+                SelectDepartment.Departments != null &&
+                ComboBoxDepartmentsList.SelectedItem != null)
             {
                 Department department = new(DepartmentNameValue.Text, SelectDepartment);
-                SelectDepartment.Departments.Add(department);
-                DepartmentsList.Add(department);
-            }
 
-            if (MyCompany.Departments != null)
-                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+                if (!MyCompany.DepartmentUnique(department))
+                {
+                    SelectDepartment.Departments.Add(department);
+                    DepartmentsList.Add(department);
+                }
+            }
         }
 
         /// <summary>
@@ -112,18 +121,22 @@ namespace Lesson_11
         /// <param name="e"></param>
         private void BottonAddExecutor_Click(object sender, RoutedEventArgs e)
         {
+            Executor exe;
             switch (((KeyValuePair<string, int>)ComboBoxSalaryList.SelectedValue).Key)
             {
                 case "Руководитель":
-                    Company.AddExecutor(SelectDepartment, new Director(ExecutorNameValue.Text, SelectDepartment));
+                    exe = new Director(ExecutorNameValue.Text, SelectDepartment.Name);
                     break;
                 case "Интерн":
-                    Company.AddExecutor(SelectDepartment, new Intern(ExecutorNameValue.Text, SelectDepartment));
+                    exe = new Intern(ExecutorNameValue.Text, SelectDepartment.Name);
                     break;
                 default:
-                    Company.AddExecutor(SelectDepartment, new Worker(ExecutorNameValue.Text, SelectDepartment));
+                    exe = new Worker(ExecutorNameValue.Text, SelectDepartment.Name);
                     break;
             }
+
+            if(!MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>()).Contains(exe))
+                Company.AddExecutor(SelectDepartment, exe);
         }
 
         /// <summary>
@@ -172,17 +185,17 @@ namespace Lesson_11
         /// <param name="e"></param>
         private void BottonLoad_Click(object sender, RoutedEventArgs e)
         {
-            //ExecutorsList.Items.Clear();
-            //CompanyTree.Items.Clear();
-
             if (MyCompany.Departments != null) MyCompany.Departments.Clear();
             MyCompany.Departments = MyCompany.DeserializeJson();
 
-            // Да, тупой повтор кода. Но я так и не понял, как иначе привязывать источники.
             CompanyTree.ItemsSource = MyCompany.Departments;
-
             if (MyCompany.Departments != null)
-                ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+            {
+                ComboBoxDepartmentsList.ItemsSource =  MyCompany.SortDepList(MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>()));
+
+                List<Executor> list = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
+                AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
+            }   
         }
 
         /// <summary>
@@ -193,6 +206,37 @@ namespace Lesson_11
         private void BottonSave_Click(object sender, RoutedEventArgs e)
         {
             if (MyCompany.Departments != null) MyCompany.SerializeJson(MyCompany.Departments);
+        }
+
+        /// <summary>
+        /// Варианты сортировка общего списка работников.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SortType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MyCompany != null && MyCompany.Departments != null && SortType != null && SortType.SelectedItem != null)
+            {
+                string sortType = "";
+                List<Executor> list = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
+                sortType = ((TextBlock)SortType.SelectedItem).Text;
+
+                switch (sortType)
+                {
+                    case "По имени":
+                        list.Sort(Executor.SortedBy(SortedCriterion.Name));
+                        AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
+                        break;
+                    case "По подразделению":
+                        list.Sort(Executor.SortedBy(SortedCriterion.Parent));
+                        AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
+                        break;
+                    default:
+                        list.Sort(Executor.SortedBy(SortedCriterion.Position));
+                        AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
+                        break;
+                }
+            }
         }
     }
 }

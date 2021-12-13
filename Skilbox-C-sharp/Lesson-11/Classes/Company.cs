@@ -1,11 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Runtime.Serialization;
-using System.Text.Unicode;
-using System.Text.Encodings.Web;
 using Newtonsoft.Json;
 
 namespace Lesson_11
@@ -162,6 +157,24 @@ namespace Lesson_11
         }
 
         /// <summary>
+        /// Сбор всех работников головного подразделения включая дочерние.
+        /// </summary>
+        /// <param name="dep">Головное подразделение.</param>
+        /// <param name="list">Список работников.</param>
+        /// <returns></returns>
+        public List<Executor> ExecutorsList(Department dep, List<Executor> list)
+        {
+            if (dep.Executors != null)
+                foreach (Executor exe in dep.Executors) list.Add(exe);
+
+            if (dep.Departments != null)
+                foreach (Department department in dep.Departments)
+                    ExecutorsList(department, list);
+
+            return list;
+        }
+
+        /// <summary>
         /// Сериализация.
         /// </summary>
         /// <param name="dep"></param>
@@ -204,9 +217,59 @@ namespace Lesson_11
             //return JsonSerializer.Deserialize<ObservableCollection<Department>>(json, options);
 
             
-            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto, Formatting = Formatting.Indented };
+            var jset = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Formatting = Formatting.Indented
+            };
             string load = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<ObservableCollection<Department>>(load, jset);
+        }
+
+        /// <summary>
+        /// Проверка подразделения на уникальность.
+        /// </summary>
+        /// <param name="department">Новое подразделение.</param>
+        /// <returns></returns>
+        public bool DepartmentUnique(Department department)
+        {
+            ObservableCollection<Department> list = DepartmentsList(this.Departments[0], new ObservableCollection<Department>());
+            if (list.Contains(department)) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// Сортировка для наблюдаемой коллекции подразделений.
+        /// </summary>
+        /// <param name="departments">Исходная коллекция.</param>
+        /// <returns></returns>
+        public ObservableCollection<Department> SortDepList(ObservableCollection<Department> departments)
+        {
+            List<Department> depSort = new();
+            ObservableCollection<Department> departmentsList = new();
+
+            foreach (var department in departments)
+                depSort.Add(department);
+
+            depSort.Sort();
+
+            foreach (Department department in depSort)
+                departmentsList.Add(department);
+
+            return departmentsList;
+        }
+
+        /// <summary>
+        /// Перевод List в ObservableCollection.
+        /// </summary>
+        /// <param name="list">List.</param>
+        /// <returns></returns>
+        public ObservableCollection<Executor> ListToObs(List<Executor> list)
+        {
+            ObservableCollection<Executor> executors = new();
+            foreach(Executor executor in list)
+                executors.Add(executor);
+            return executors;
         }
 
         #endregion

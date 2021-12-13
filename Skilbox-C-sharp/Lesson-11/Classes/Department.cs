@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
 namespace Lesson_11
 {
-    public class Department
+    public class Department : IEquatable<Department>, IComparable<Department>
     {
         #region Поля
 
@@ -102,9 +103,30 @@ namespace Lesson_11
 
         #region Методы
 
+        /// <summary>
+        /// Реализация интерфейса сравнения.
+        /// </summary>
+        /// <param name="other">Сравниваемое подразделение.</param>
+        /// <returns></returns>
+        public bool Equals(Department? other)
+        {
+            if (other != null) return this.Name == other.Name;
+            else return false;
+        }
 
-
+        /// <summary>
+        /// Реализация интерфейса сортировки подразделений.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public int CompareTo(Department? other)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
 
         #endregion
+
+        
     }
 }

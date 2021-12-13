@@ -9,7 +9,7 @@
         /// </summary>
         /// <param name="name">Имя.</param>
         /// <param name="parent">Подразделение.</param>
-        public Worker(string name, Department parent) : base(name, "Работник", 8) { }
+        public Worker(string name, string parent) : base(name, "Работник", parent, 8) { }
 
         #endregion
     }
