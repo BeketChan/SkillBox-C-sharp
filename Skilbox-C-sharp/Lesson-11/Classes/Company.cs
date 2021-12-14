@@ -102,7 +102,7 @@ namespace Lesson_11
         /// </summary>
         /// <param name="department">Подразделение.</param>
         /// <param name="executor">Работник.</param>
-        public static void AddExecutor(Department department, Executor executor)
+        public void AddExecutor(Department department, Executor executor)
         {
             if ( !( executor.Position == "Руководитель" && CheckDirectorInDepartment(department) ) && department.Executors != null)
             {

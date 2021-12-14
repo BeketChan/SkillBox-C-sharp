@@ -35,11 +35,13 @@ namespace Lesson_11
             if (MyCompany.Departments != null)
             {
                 ComboBoxDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
+                ExecutorDepartmentsList.ItemsSource = MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>());
 
                 AllExecutorsList.ItemsSource = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
             }   
 
             ComboBoxSalaryList.ItemsSource = MyCompany.Position;
+            ExecutorPositionList.ItemsSource = MyCompany.Position;
         }
 
         /// <summary>
@@ -136,7 +138,7 @@ namespace Lesson_11
             }
 
             if(!MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>()).Contains(exe))
-                Company.AddExecutor(SelectDepartment, exe);
+                MyCompany.AddExecutor(SelectDepartment, exe);
         }
 
         /// <summary>
@@ -191,7 +193,8 @@ namespace Lesson_11
             CompanyTree.ItemsSource = MyCompany.Departments;
             if (MyCompany.Departments != null)
             {
-                ComboBoxDepartmentsList.ItemsSource =  MyCompany.SortDepList(MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>()));
+                ComboBoxDepartmentsList.ItemsSource = MyCompany.SortDepList(MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>()));
+                ExecutorDepartmentsList.ItemsSource = MyCompany.SortDepList(MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>()));
 
                 List<Executor> list = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
                 AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
@@ -217,9 +220,8 @@ namespace Lesson_11
         {
             if (MyCompany != null && MyCompany.Departments != null && SortType != null && SortType.SelectedItem != null)
             {
-                string sortType = "";
+                string sortType = ((TextBlock)SortType.SelectedItem).Text;
                 List<Executor> list = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
-                sortType = ((TextBlock)SortType.SelectedItem).Text;
 
                 switch (sortType)
                 {
@@ -237,6 +239,62 @@ namespace Lesson_11
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Выбор исполнителя из списка.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AllExecutorsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Executor selected = (Executor)AllExecutorsList.SelectedItem;
+
+            ExecuturNameValue.Text = selected.Name;
+
+            for(int i = 0; i < ExecutorDepartmentsList.Items.Count; i++)
+                if (((Department)ExecutorDepartmentsList.Items[i]).Name == selected.Parent)
+                    ExecutorDepartmentsList.SelectedIndex = i;
+
+            for(int i = 0; i < ExecutorPositionList.Items.Count; i++)
+                if (((KeyValuePair<string, int>)ExecutorPositionList.Items[i]).Key == selected.Position)
+                    ExecutorPositionList.SelectedIndex = i;
+        }
+
+        /// <summary>
+        /// Применить изменения в выбранном исполнителе.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExecutorCommit_Click(object sender, RoutedEventArgs e)
+        {
+            Executor selected = (Executor)AllExecutorsList.SelectedItem;
+
+            ObservableCollection<Department> depList = MyCompany.SortDepList(MyCompany.DepartmentsList(MyCompany.Departments[0], new ObservableCollection<Department>()));
+            Department departmentOld = new();
+            foreach(Department d in depList)
+                if(d.Name == selected.Parent)
+                    departmentOld = d;
+
+            Department departmentNew = (Department)ExecutorDepartmentsList.SelectedItem;
+            
+            if (!( ((KeyValuePair<string, int>)ExecutorPositionList.SelectedItem).Key == "Руководитель" && Company.CheckDirectorInDepartment(departmentNew)) && departmentNew.Executors != null)
+            {
+                if (departmentOld.Name != departmentNew.Name)
+                {
+                    departmentOld.Executors.Remove(selected);
+                    departmentNew.Executors.Add(selected);
+                    selected.Parent = departmentNew.Name;
+                }
+
+                if (((KeyValuePair<string, int>)ExecutorPositionList.SelectedItem).Key != selected.Position)
+                {
+                    selected.Position = ((KeyValuePair<string, int>)ExecutorPositionList.SelectedItem).Key;
+                }
+            }
+
+            List<Executor> list = MyCompany.ExecutorsList(MyCompany.Departments[0], new List<Executor>());
+            AllExecutorsList.ItemsSource = MyCompany.ListToObs(list);
         }
     }
 }
