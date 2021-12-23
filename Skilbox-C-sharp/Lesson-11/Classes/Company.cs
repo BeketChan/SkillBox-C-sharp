@@ -233,7 +233,7 @@ namespace Lesson_11
         /// <returns></returns>
         public bool DepartmentUnique(Department department)
         {
-            ObservableCollection<Department> list = DepartmentsList(this.Departments[0], new ObservableCollection<Department>());
+            ObservableCollection<Department> list = DepartmentsList(Departments[0], new ObservableCollection<Department>());
             if (list.Contains(department)) return true;
             else return false;
         }
