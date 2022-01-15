@@ -20,13 +20,13 @@ namespace Lesson_13.Classes
         /// <summary>
         /// Список клиентов банка.
         /// </summary>
-        List<Klient<Accaunt>> klients;
+        //List<Klient<Accaunt>> klients;
+        List<Klient> klients;
 
         /// <summary>
         /// Список типов клиентов.
         /// </summary>
         List<string> klientType = new List<string> { "Физ.клиент", "Физ.клиент VIP" };
-
 
         #endregion
 
@@ -35,14 +35,14 @@ namespace Lesson_13.Classes
         /// <summary>
         /// Работа со списком клиентов.
         /// </summary>
-        public ObservableCollection<Klient<Accaunt>>? Klients
+        public ObservableCollection<Klient>? Klients
         {
             get
             {
                 if (klients != null)
                 {
-                    ObservableCollection<Klient<Accaunt>> vs = new ObservableCollection<Klient<Accaunt>>();
-                    foreach (Klient<Accaunt> E in klients)
+                    ObservableCollection<Klient> vs = new ObservableCollection<Klient>();
+                    foreach (Klient E in klients)
                         vs.Add(E);
                     return vs;
                 }
@@ -53,7 +53,7 @@ namespace Lesson_13.Classes
                 if (value != null)
                 {
                     klients.Clear();
-                    foreach (Klient<Accaunt> E in value)
+                    foreach (Klient E in value)
                         klients.Add(E);
                 }
             }
@@ -82,7 +82,7 @@ namespace Lesson_13.Classes
         /// </summary>
         public Bank()
         {
-            klients = new List<Klient<Accaunt>>();
+            klients = new List<Klient>();
         }
 
         #endregion
@@ -108,7 +108,7 @@ namespace Lesson_13.Classes
         /// <summary>
         /// Загрузить данные.
         /// </summary>
-        public ObservableCollection<Klient<Accaunt>> Load()
+        public ObservableCollection<Klient> Load()
         {
             var jset = new JsonSerializerSettings()
             {
@@ -116,7 +116,7 @@ namespace Lesson_13.Classes
                 Formatting = Formatting.Indented
             };
             string load = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<ObservableCollection<Klient<Accaunt>>>(load, jset);
+            return JsonConvert.DeserializeObject<ObservableCollection<Klient>>(load, jset);
         }
 
         /// <summary>
@@ -124,38 +124,24 @@ namespace Lesson_13.Classes
         /// </summary>
         /// <param name="klientName">Имя клиента.</param>
         /// <param name="klientType">Тип клиента.</param>
-        public void AddKlient(string klientName, string klientType)
+        public Klient AddKlient(string klientName, string klientType)
         {
-            Klient<Accaunt> newK;
+            Klient newK;
             switch (klientType)
             {
-                case "Физ.клиент":
-                    newK = new Individual(klientName);
-                    klients.Add(newK);
-                    break;
                 case "Физ.клиент VIP":
                     newK = new IndividualVip(klientName);
                     klients.Add(newK);
                     break;
+                default:
+                    newK = new Individual(klientName);
+                    klients.Add(newK);
+                    break;
             }
+            return newK;
         }
 
-        /// <summary>
-        /// Добавляем счёт клиенту.
-        /// </summary>
-        /// <param name="currentKlient">Клиент.</param>
-        /// <param name="accName">Новый счёт.</param>
-        public void AddKlientAcc(Klient<Accaunt> currentKlient, string accName)
-        {
-            Accaunt acc = currentKlient.NewAcc(accName);
-
-            //var serializedParent = JsonConvert.SerializeObject(acc);
-            //Deposit acc2 = JsonConvert.DeserializeObject<Deposit>(serializedParent);
-
-            currentKlient.Deposits.Add(acc);
-        }
-
-
+        
         #endregion
     }
 }

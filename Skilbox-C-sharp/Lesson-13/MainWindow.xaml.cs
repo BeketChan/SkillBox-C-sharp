@@ -4,6 +4,7 @@ using Lesson_13.Classes.Klients_Classes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Lesson_13
     {
         Bank bank = new();
         string currentKlientType = "";
-        Klient<Accaunt> currentKlient;
+        Klient currentKlient;
 
         public MainWindow()
         {
@@ -68,9 +69,11 @@ namespace Lesson_13
         /// <param name="e"></param>
         private void AddKlient_Click(object sender, RoutedEventArgs e)
         {
-            bank.AddKlient(NewKlient.Text, currentKlientType);
+            currentKlient = bank.AddKlient(NewKlient.Text, currentKlientType);
 
             KlientList.ItemsSource = bank.Klients;
+            KlientAccList.ItemsSource = currentKlient.Deposits;
+            KlientAcc.ItemsSource = currentKlient.AccType;
         }
 
         /// <summary>
@@ -85,7 +88,6 @@ namespace Lesson_13
                 currentKlientType = KlientKind.SelectedItem.ToString();
             }
             else currentKlientType = "";
-            
         }
 
         /// <summary>
@@ -95,8 +97,10 @@ namespace Lesson_13
         /// <param name="e"></param>
         private void KlientList_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            currentKlient = (Klient<Accaunt>)KlientList.SelectedItem;
-            CurrentKlient.Text = currentKlient.Name;
+            currentKlient = (Klient)KlientList.SelectedItem;
+            CurrentKlient.Text = $"{currentKlient.Name}, {currentKlient.Type}";
+            KlientAccList.ItemsSource = currentKlient.Deposits;
+            KlientAcc.ItemsSource = currentKlient.AccType;
         }
 
         /// <summary>
@@ -107,30 +111,10 @@ namespace Lesson_13
         private void AddAcc_Click(object sender, RoutedEventArgs e)
         {
             if (NewAcc.Text == "") NewAcc.Text = "Default";
-            //bank.AddKlientAcc(currentKlient, NewAcc.Text);  // не работает
-            //test.Text = currentKlient.Deposits[0].Name;
+            currentKlient.AddAcc(NewAcc.Text);
+            KlientAccList.ItemsSource = currentKlient.Deposits;
 
-
-            // перенёс из bank.AddKlientAcc
-            //Accaunt acc = currentKlient.NewAcc(NewAcc.Text); // работает
-            //test.Text = acc.Name;
-            //currentKlient.Deposits.Add(acc); // не работает :(
-            //test.Text = currentKlient.Deposits[0].Name;
-
-
-            // ещё вариант
-            Accaunt acc = currentKlient.NewAcc(NewAcc.Text);
-            var serializedParent = JsonConvert.SerializeObject(acc);
-            Deposit acc2 = JsonConvert.DeserializeObject<Deposit>(serializedParent);
-            currentKlient.Deposits.Add(acc);   // не работает :(
             test.Text = currentKlient.Deposits[0].Name;
-
-
-
-            //test.Text = bank.Klients[0].Deposits[0].Name;
-            //test.Text = bank.Klients[0].Name;
-            //test.Text = currentKlient.Name;
-
         }
     }
 }

@@ -2,7 +2,6 @@ E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Les
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Lesson-13.deps.json
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Lesson-13.runtimeconfig.json
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Lesson-13.dll
-E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\ref\Lesson-13.dll
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Lesson-13.pdb
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\Lesson-13.csproj.AssemblyReference.cache
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\MainWindow.g.cs
@@ -21,3 +20,4 @@ E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\Les
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\Lesson-13.genruntimeconfig.cache
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\Lesson-13.csproj.CopyComplete
+E:\YandexDisk\SkillBox\C#\Skilbox-C-sharp\Lesson-13\obj\Debug\net6.0-windows\refint\Lesson-13.dll

@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:Lesson_13"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="480" Width="960"
-        MinHeight="480" MinWidth="960"
+        MinHeight="720" MinWidth="1440"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -20,9 +19,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+
+        <TextBlock Grid.Column="0" Grid.Row="0"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Margin="5,5,0,0" Padding="5"
+            TextWrapping="Wrap" 
+            FontWeight="Bold" FontSize="20"
+            Text="Список клиентов банка:"/>
+
         <TreeView x:Name="KlientList"
-                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                  Margin="5" Padding="5"
+                  Grid.Column="0" Grid.Row="0"
+                  Margin="5,45,5,5" Padding="5"
                   SelectedItemChanged="KlientList_SelectedItemChanged">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Klients}">
@@ -51,7 +58,8 @@
                   Margin="5,45,5,5" Padding="5"
                   HorizontalAlignment="Right" VerticalAlignment="Top"
                   Width="120"
-                  ItemsSource="{Binding KlientType}" SelectionChanged="KlientKind_SelectionChanged"/>
+                  ItemsSource="{Binding KlientType}"
+                  SelectionChanged="KlientKind_SelectionChanged"/>
 
         <TextBlock Grid.Column="1" Grid.Row="0"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -70,7 +78,7 @@
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    Margin="5,105,5,5" Padding="5"
                    TextWrapping="Wrap"
-                   Text="Головной офис (для филиала):"/>
+                   Text="Головной офис (для филиала юр.лица):"/>
 
         <ComboBox x:Name="KlientParent"
                   Grid.Column="1" Grid.Row="0"
@@ -98,7 +106,7 @@
                    Margin="5,5,5,5" Padding="5"
                    TextWrapping="Wrap" 
                    FontWeight="Bold" FontSize="20"
-                   Text="Статистика БАНКА:"/>
+                   Text="Статистика и опции БАНКА:"/>
 
         <TextBlock Grid.Column="2" Grid.Row="0"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -154,6 +162,13 @@
                 Width="120" FontWeight="Bold"
                 Content="Сохранить данные"
                 Click="Save_Click"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Margin="5"
+                   TextWrapping="Wrap" 
+                   FontWeight="Bold" FontSize="20"
+                   Text="Варианты кредита:"/>
 
         <TextBlock Grid.Column="1" Grid.Row="1"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -250,21 +265,22 @@
                   Grid.Column="2" Grid.Row="1"
                   Margin="5,70,5,5" Padding="5"
                   HorizontalAlignment="Right" VerticalAlignment="Top"
-                  Width="120"/>
+                  Width="120"
+                  ItemsSource="{Binding AccType}"/>
 
         <Button x:Name="AddAcc"
                 Grid.Column="2" Grid.Row="1"
                 Margin="5,100,5,5" Padding="5"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Width="120" FontWeight="Bold"
-                Content="Добавить" Click="AddAcc_Click"/>
+                Content="Добавить"
+                Click="AddAcc_Click"/>
         
         <ListBox x:Name="KlientAccList"
                  Grid.Column="2" Grid.Row="1"
-                 Margin="5,100,5,5" Padding="5"
+                 Margin="5,130,5,5" Padding="5"
                  HorizontalAlignment="Left" VerticalAlignment="Top"
-                 Width="180" Height="110"
-                 d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                 Width="180" Height="180"/>
 
 
     </Grid>

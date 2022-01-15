@@ -8,8 +8,7 @@ namespace Lesson_13.Classes.Klients_Classes
     /// <summary>
     /// Клиент
     /// </summary>
-    public class Klient<T> : IEquatable<Klient<T>>, IComparable<Klient<T>>, INewAccCovariant<T>
-        where T : Accaunt, new()
+    public abstract class Klient : IEquatable<Klient>, IComparable<Klient>
     {
         #region Поля
 
@@ -21,7 +20,12 @@ namespace Lesson_13.Classes.Klients_Classes
         /// <summary>
         /// Список счетов клиента.
         /// </summary>
-        List<T>? deposits;
+        List<Accaunt>? deposits;
+
+        /// <summary>
+        /// Тип клиента, для удобства
+        /// </summary>
+        string? type;
 
         #endregion
 
@@ -39,13 +43,14 @@ namespace Lesson_13.Classes.Klients_Classes
         /// <summary>
         /// Получить список счетов клиента.
         /// </summary>
-        public ObservableCollection<T>? Deposits
+        public ObservableCollection<Accaunt>? Deposits
         {
             get
             {
-                ObservableCollection<T> dep = new();
-                foreach (T d in deposits)
-                    dep.Add(d);
+                ObservableCollection<Accaunt> dep = new();
+                if (deposits != null)
+                    foreach (Accaunt d in deposits)
+                        dep.Add(d);
                 return dep;
             }
             set
@@ -53,29 +58,44 @@ namespace Lesson_13.Classes.Klients_Classes
                 if (value != null)
                 {
                     deposits.Clear();
-                    foreach (T E in value)
+                    foreach (Accaunt E in value)
                         deposits.Add(E);
                 }
             }
         }
+
+        /// <summary>
+        /// Получить тип клиента
+        /// </summary>
+        public string? Type
+        {
+            get => type;
+        }
+
+        /// <summary>
+        /// Допустимые типу счетов
+        /// </summary>
+        public List<string>? AccType { get; }
 
         #endregion
 
         #region Конструкторы
 
         /// <summary>
-        /// Базовый конструктор.
+        /// Пустой Конструктор
         /// </summary>
-        //public Klient() { }
+        public Klient() { }
 
         /// <summary>
         /// Создание нового клиента
         /// </summary>
         /// <param name="name"></param>
-        public Klient(string name)
+        public Klient(string name, string type, List<string> AccType)
         {
             this.name = name;
-            deposits = new List<T>();
+            this.type = type;
+            this.AccType = AccType;
+            deposits = new List<Accaunt>();
         }
 
         #endregion
@@ -87,7 +107,7 @@ namespace Lesson_13.Classes.Klients_Classes
         /// </summary>
         /// <param name="other">Сравниваемый клиент.</param>
         /// <returns></returns>
-        public bool Equals(Klient<T>? other)
+        public bool Equals(Klient? other)
         {
             if (other != null) return this.Name == other.Name;
             else return false;
@@ -99,7 +119,7 @@ namespace Lesson_13.Classes.Klients_Classes
         /// <param name="other"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public int CompareTo(Klient<T>? other)
+        public int CompareTo(Klient? other)
         {
             if (other is null)
                 throw new ArgumentNullException(nameof(other));
@@ -107,32 +127,13 @@ namespace Lesson_13.Classes.Klients_Classes
         }
 
         /// <summary>
-        /// Реализация интерфейса создания нового счёта.
+        /// Добавляем счёт клиенту.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public T NewAcc(string name)
+        /// <param name="name">Имя счёта.</param>
+        public void AddAcc(string name)
         {
             Accaunt acc = new(name);
-            return (T)acc;
-        }
-
-        /// <summary>
-        /// Правило преобразования для Individual.
-        /// </summary>
-        /// <param name="v"></param>
-        public static implicit operator Klient<T>(Individual v)
-        {
-            return new Klient<T>(v.Name);
-        }
-
-        /// <summary>
-        /// Правило преобразования для IndividualVip.
-        /// </summary>
-        /// <param name="v"></param>
-        public static implicit operator Klient<T>(IndividualVip v)
-        {
-            return new Klient<T>(v.Name);
+            deposits.Add(acc);
         }
 
         #endregion

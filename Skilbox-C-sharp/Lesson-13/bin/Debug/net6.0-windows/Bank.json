@@ -1,10 +1,23 @@
 [
   {
-    "Name": "Azz",
-    "Deposits": []
+    "$type": "Lesson_13.Classes.Klients_Classes.Individual, Lesson-13",
+    "Name": "Az",
+    "Deposits": [],
+    "Type": "Физ.клиент",
+    "AccType": [
+      "Р/счёт",
+      "Депозит"
+    ]
   },
   {
+    "$type": "Lesson_13.Classes.Klients_Classes.IndividualVip, Lesson-13",
     "Name": "Azaz",
-    "Deposits": []
+    "Deposits": [],
+    "Type": "Физ.клиент VIP",
+    "AccType": [
+      "Р/счёт",
+      "Депозит",
+      "Депозит VIP"
+    ]
   }
 ]
